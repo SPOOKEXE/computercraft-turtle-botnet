@@ -18,14 +18,18 @@ The following high-level diagram shows this complete turtle-perspective process.
 
 For the python backend, there is many pieces to the puzzle, so here is quick list of components:
 1. **CORE COMPONENTS:**
-	a. Websocket Wrapper
-	b. Behavior Tree System
-	c. Recipe Resolver
-	d. Asynchronous Operations
+	<ul>
+		<li>Websocket Wrapper</li>
+		<li>Behavior Tree System</li>
+		<li>Recipe Resolver</li>
+		<li>Asynchronous Operations</li>
+	</ul>
 
 2. **EXTRA COMPONENTS:**
-	a. 3D World Visualizer
-	b. Fully Serializable
+	<ul>
+		<li>3D World Visualizer</li>
+		<li>Fully Serializable</li>
+	</ul>
 
 And here is a version of the turtle behavior tree diagram:
 <img src="docs/readme/turtle-brain-diagram.png" alt="Behavior Trees Flowchart" width="800px"></img>
