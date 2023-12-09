@@ -51,8 +51,8 @@ And here is a version of the turtle behavior tree diagram:
 
 #### Python
 
-0. View the installation section if you have not yet.
-1. Run the following script; `python -> __init__.py`
+1. View the installation section if you have not yet.
+2. Run the following script; `python -> __init__.py`
 
 #### ComputerCraft
 1. In your `Minecraft World Folder`, allow websocket connections to your host in the `World Folder -> serverconfig -> computercraft-server.toml` file.
@@ -60,38 +60,56 @@ And here is a version of the turtle behavior tree diagram:
 2. Pick one of the following options depending on what is your circumstance:
 
 	**Singleplayer (World Folder):**
+
 	i. Copy `turtle -> main -> startup.lua` from this repository to your `turtle folder`.
 	You can find the turtle folder in the `minecraft world folder -> computercraft -> computer -> [TURTLE_ID]` folder. If you need to find your turtle id, open the target turtle and run `id`.
+
 	ii. Reboot the turtle.
 
 	**SinglePlayer & Multiplayer (Pastebin):**
+
 	i. Upload `turtle -> main -> startup.lua` to pastebin.
+
 	ii. In the target turtle, use `pastebin [URL_HERE] startup.lua`, replacing `[URL_HERE]` with the pastebin url.
+
 	iii. Reboot the turtle.
 
 	**Singleplayer & Multiplayer (Manual):**
+
 	i. Open the `turtle -> main -> startup.lua` file in this repository.
+
 	ii. In the target turtle, type `edit startup.lua`.
+
 	iii. Copy each line from the `startup.lua` individually into the computercraft editor.
+
 	iv. Press `CTRL / COMMAND` and `SAVE` using the arrow keys and enter.
+
 	v. Press `CTRL / COMMAND` and `EXIT` using the arrow keys and enter.
+
 	vi. Reboot the turtle.
 
 ## Resources / Credits
 
 `99%` of the code was done by me, [@SPOOKEXE](https://www.github.com/SPOOKEXE).
 
-I used a resource to solve the turtle replication which is linked below; namely the `genesis` function.
+I used this particular resource to solve the turtle replication which is linked below; namely in the `genesis` function.
+
 <img src="docs/readme/credits-resource-1.png" alt="YouTube Video Thumbnail" width="600px"></img>
+
 **Video:** https://www.youtube.com/watch?v=MXYZufNQtdQ
+
 **Code:** https://pastebin.com/YtvRxY9j
 
 Another video resource I used as a 'goal' for the project was to visualize what the turtles see in a 3D space:
+
 <img src="docs/readme/credits-resource-1.png" alt="YouTube Video Thumbnail" width="600px"></img>
+
 **Video:** https://www.youtube.com/watch?v=pwKRbsDbxqc
 
 Finally, the last video reference I used was for general application to any turtle program; to get an idea of state persistence.
+
 <img src="docs/readme/credits-resource-3.png" alt="YouTube Video Thumbnail" width="600px"></img>
+
 **Video:** https://www.youtube.com/watch?v=U7HWMfgPGxo
 
 Apart from those, I did everything from the ground up.
