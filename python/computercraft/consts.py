@@ -83,21 +83,19 @@ class TurtleActions(Enum):
 class CCTurtle(SolidBlock, Inventory, BaseModel):
 	uid : str = uuid4().hex
 	name : str = "computercraft:turtle"
-	label : str = "Unknown"
-	selectedSlot : int = 1
 	fuel : int = 0
 	position : Point3 = Point3()
 	direction : Direction = Direction.north
+	is_new_turtle : bool = True
 
 	inventory : list = list()
 	left_hand : Item = None
 	right_hand : Item = None
 
-	tracker_results : dict = dict()
-	queued_jobs : list = list()
-	active_jobs : list = list()
-	is_new_turtle : bool = True
+	queued_jobs : list[list] = list()
+	active_job : int = None
+	active_tracker : str = None
+	active_args : list = None
 
 class CCWorld(World):
-	turtle_ids : list[str] = list()
-	turtles_map : dict[str, CCTurtle] = dict()
+	turtles : dict[str, CCTurtle] = dict()
