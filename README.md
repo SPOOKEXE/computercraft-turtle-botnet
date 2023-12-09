@@ -156,7 +156,7 @@ I used this particular resource to solve the turtle replication which is linked 
 
 Another video resource I used as a 'goal' for the project was to visualize what the turtles see in a 3D space:
 
-<img src="docs/readme/credits-resource-1.png" alt="YouTube Video Thumbnail" width="600px"></img>
+<img src="docs/readme/credits-resource-2.png" alt="YouTube Video Thumbnail" width="600px"></img>
 
 **Video:** https://www.youtube.com/watch?v=pwKRbsDbxqc
 
