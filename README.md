@@ -12,9 +12,12 @@ For this implementation of the system, I have **python** handle the majority of 
 
 For the turtles, I make them simply connect to python with webhooks to find out what they need to do next, and I keep state persistence inside the turtles for when they are chunk unloaded and reloaded as it resets the turtle's VM.
 
-The following high-level diagram shows this complete turtle-perspective process.
+The following high-level diagram shows this complete turtle-perspective process of it connecting to the python server.
 
 <img src="docs/readme/high-level-turtle-flow.png" alt="Turtle-Perspective Flowchart" width="300px"></img>
+
+Here is a perspective of the server-side when the turtle connects to the python websocket:
+<img src="docs/readme/turtle-python-api-flowchart.png" alt="Python Server Turtle Flowchart" width="800px"></img>
 
 For the python backend, there is many pieces to the puzzle, so here is quick list of components:
 1. **CORE COMPONENTS:**
@@ -34,8 +37,12 @@ For the python backend, there is many pieces to the puzzle, so here is quick lis
 And here is a version of the turtle behavior tree diagram:
 <img src="docs/readme/turtle-brain-diagram.png" alt="Behavior Trees Flowchart" width="800px"></img>
 
+
+
 ...
+
 ...
+
 ...
 
 ## Installation
@@ -100,11 +107,13 @@ I used this particular resource to solve the turtle replication which is linked 
 
 **Code:** https://pastebin.com/YtvRxY9j
 
+
 Another video resource I used as a 'goal' for the project was to visualize what the turtles see in a 3D space:
 
 <img src="docs/readme/credits-resource-1.png" alt="YouTube Video Thumbnail" width="600px"></img>
 
 **Video:** https://www.youtube.com/watch?v=pwKRbsDbxqc
+
 
 Finally, the last video reference I used was for general application to any turtle program; to get an idea of state persistence.
 
@@ -112,4 +121,5 @@ Finally, the last video reference I used was for general application to any turt
 
 **Video:** https://www.youtube.com/watch?v=U7HWMfgPGxo
 
-Apart from those, I did everything from the ground up.
+
+Apart from the first reference for code, I did all the code from the ground up.
