@@ -1,17 +1,21 @@
 
-from library.behaviortrees import (
+from .library.behaviortrees import (
 	BaseBehaviorTree, BehaviorTreeBuilder,
 	BaseSequenceItem, TreeNodeFactory
 )
 
-from library.websocks import (
+from .library.websocks import (
 	BaseWebSocket
 )
 
-from ccminecraft import (
+from .ccminecraft import (
 	CCWorldAPI
 )
 
-from consts import (
+from .consts import (
 	CCTurtle, CCWorld, TurtleActions
+)
+
+from .ccrecipes import (
+	RecipeHelpers, ResourceType, SmartRecipeSystem, DEFAULT_RECIPES
 )

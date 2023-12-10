@@ -7,15 +7,9 @@ from minecraft import (
 	# world.py
 	WorldAPI,
 	# recipes.py
-	RecipeType, RECIPES,
-	resolve_recipe_tree, resolve_multi_tree
 )
 
-from utility import (
-	array_find,
-	cache_increment_index,
-	cache_push_increment
-)
+from utility import array_find
 
 from consts import (
 	CCWorld, CCTurtle, TurtleActions

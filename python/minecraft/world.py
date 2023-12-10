@@ -3,8 +3,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from consts import Point3, Block, World
-from utility import array_find
+from .consts import ( Point3, Block, World )
+from .utility import ( array_find )
 
 class WorldAPI:
 
