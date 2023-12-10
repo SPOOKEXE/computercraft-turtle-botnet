@@ -10,6 +10,8 @@ from world import (
 )
 
 from recipes import (
-	RecipeType, RECIPES,
-	resolve_recipe_tree, resolve_multi_tree
+	RecipeType, SmartRecipeSystem,
+	resolve_recipe_tree, resolve_multi_tree,
+	craftable_resource, natural_resource, smeltable_resource,
+	construct_craft_recipe
 )
