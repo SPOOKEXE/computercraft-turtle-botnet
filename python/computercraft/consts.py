@@ -80,7 +80,7 @@ class TurtleActions(Enum):
 	procreate = 82
 	isBusy = 83
 
-class CCTurtle(SolidBlock, Inventory, BaseModel):
+class CCTurtle(SolidBlock, Inventory):
 	uid : str = uuid4().hex
 	name : str = "computercraft:turtle"
 	fuel : int = 0

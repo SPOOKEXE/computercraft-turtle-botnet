@@ -23,4 +23,7 @@ class BaseWebSocket:
 
 	def start( self ) -> None:
 		print(f'Websocket Server is now running on {self.ip}:{self.port}')
-		asyncio.run(self._internal_start())
+		try:
+			asyncio.run(self._internal_start())
+		except KeyboardInterrupt:
+			pass

@@ -1,6 +1,4 @@
 
-import json
-
 from minecraft.recipes import (
 	RecipeHelpers, SmartRecipeSystem, ResourceType
 )

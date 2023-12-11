@@ -1,4 +1,5 @@
 
+import pickle
 from minecraft import (
 	# consts.py
 	Direction, Point3, Item,
@@ -69,3 +70,11 @@ class CCWorldAPI(WorldAPI):
 		# clear the active job
 		turtle.active_job = None
 		turtle.active_args = None
+
+	@staticmethod
+	def serialize( world : CCWorld ) -> bytes:
+		return pickle.dumps( world )
+
+	@staticmethod
+	def deserialize( data : bytes ) -> CCWorld:
+		return pickle.loads( data )

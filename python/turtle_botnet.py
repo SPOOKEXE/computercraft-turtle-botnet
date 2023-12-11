@@ -1,5 +1,4 @@
 
-
 import json
 import traceback
 
@@ -13,6 +12,10 @@ from computercraft import (
 
 from minecraft import (
 	Point3
+)
+
+from turtle_bt import (
+	BehaviorTrees, create_turtle_sequencer
 )
 
 def is_valid_xyz( xyz : list ) -> bool:
@@ -77,12 +80,19 @@ class TurtleWebsocket( BaseWebSocket ):
 
 		print(f'Create turtle of id { turtle_id } at { xyz } facing { direction }!')
 
-		_ = CCWorldAPI.create_new_turtle(
+		new_turtle = CCWorldAPI.create_new_turtle(
 			self.world,
 			turtle_id,
 			Point3(x=xyz[0], y=xyz[1], z=xyz[2]),
 			direction
 		)
+
+		try:
+			new_sequencer = create_turtle_sequencer( self.world, new_turtle )
+			BehaviorTrees.INITIALIZER.append_sequencer( new_sequencer )
+		except Exception as exception:
+			print('Failed to append turtle to behavior tree:')
+			traceback.print_exception( exception )
 
 		return self.construct_response( message='Turtle has been created!' )
 

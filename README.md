@@ -111,32 +111,32 @@ The HIVE behavior tree has not been implemented yet and will be in the future on
 
 <header>CORE MODULES</header>
 <ul>
-	<li>[❌] Connect to python websocket</li>
-	<li>[❌] Preset Actions</li>
-	<li>[❌] State Persistence</li>
-</ul>
-
-<header>EXTRA MODULES</header>
-<ul>
-	<li>[❌] </li>
+	<li>[✔️] Connect to python websocket</li>
+	<li>[✔️] Preset Actions</li>
+	<li>[✔️] Parse Actions</li>
 </ul>
 
 #### Python
 
 <header>CORE SYSTEMS</header>
 <ul>
-	<li>[❌] Websocket Server</li>
-	<li>[❌] Parse Incoming Server Requests</li>
-	<li>[❌] Turtle State Persistence Data</li>
-	<li>[❌] Behavior Tree Framework</li>
-	<li>[❌] Turtle Behavior Trees</li>
+	<li>[✔️] Websocket Server</li>
+	<li>[✔️] Parse Incoming Server Requests</li>
+	<li>[✔️] Turtle State Persistence Data</li>
+	<li>[✔️] Behavior Tree Framework</li>
+	<li>[🚧] Turtle Behavior Trees</li>
 </ul>
 
 <header>EXTRA SYSTEMS</header>
+<ul>
 	<li>[❌] 3D World Viewer</li>
 	<li>[❌] 3D World Pathfinding</li>
-<ul>
+</ul>
 
+<header>NEXT SYSTEMS</header>
+<ul>
+	<li>[❌] Manual Turtle Controller</li>
+	<li>[❌] HIVE System when turtle count reaches >10 turtles?</li>
 </ul>
 
 ✔️❌🚧
