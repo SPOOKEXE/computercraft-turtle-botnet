@@ -3,7 +3,13 @@ local fs, turtle, peripheral, sleep, http, textutils, read
 
 local socket = {}
 
-socket.JobEnums = { IsNewTurtle = 1, Initialize = 2, GetNextJob = 3, ReturnJobResult = 4, }
+socket.JobEnums = {
+	DoesTurtleExist = 1,
+	Initialize = 2,
+	GetCurrentJob = 3,
+	SetJobResults = 4,
+}
+
 socket.ServerURL = '127.0.0.1:500'
 
 function socket.PostAndReceiveJSON( message_json )
@@ -15,32 +21,32 @@ function socket.PostAndReceiveJSON( message_json )
 	return textutils.unserialiseJSON( response )
 end
 
-function socket.IsNewTurtle( turtle_id )
+function socket.DoesTurtleExist( turtle_id )
 	return socket.PostAndReceiveJSON({
-		job = socket.JobEnums.GetNextJob,
+		job = socket.JobEnums.DoesTurtleExist,
 		uid = turtle_id,
 	})
 end
 
 function socket.Initialize( turtle_id, xyz, direction )
 	return socket.PostAndReceiveJSON({
-		job = socket.JobEnums.GetNextJob,
+		job = socket.JobEnums.Initialize,
 		uid = turtle_id,
 		xyz = xyz,
 		direction = direction,
 	})
 end
 
-function socket.GetNextJob( turtle_id )
+function socket.GetCurrentJob( turtle_id )
 	return socket.PostAndReceiveJSON({
-		job = socket.JobEnums.GetNextJob,
+		job = socket.JobEnums.GetCurrentJob,
 		uid = turtle_id,
 	})
 end
 
-function socket.ReturnJobResult( turtle_id, values )
+function socket.SetJobResults( turtle_id, values )
 	return socket.PostAndReceiveJSON({
-		job = socket.JobEnums.ReturnJobResult,
+		job = socket.JobEnums.SetJobResults,
 		uid = turtle_id,
 		results = values,
 	})

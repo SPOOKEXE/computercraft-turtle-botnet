@@ -22,4 +22,5 @@ class BaseWebSocket:
 			await asyncio.Future()
 
 	def start( self ) -> None:
+		print(f'Websocket Server is now running on {self.ip}:{self.port}')
 		asyncio.run(self._internal_start())

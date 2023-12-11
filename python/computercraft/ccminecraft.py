@@ -9,9 +9,11 @@ from minecraft import (
 	# recipes.py
 )
 
-from utility import array_find
+from .utility import (
+	array_find
+)
 
-from consts import (
+from .consts import (
 	CCWorld, CCTurtle, TurtleActions
 )
 
@@ -22,8 +24,17 @@ class CCWorldAPI(WorldAPI):
 		return array_find( world.turtle_ids, turtle_id ) != -1
 
 	@staticmethod
-	def create_new_turtle( world : CCWorld, position : Point3, direction : str ) -> CCTurtle:
-		turtle = CCTurtle(position=position, direction=direction)
+	def reinitialize_turtle( world : CCWorld, turtle_id : str ) -> None:
+		if not CCWorldAPI.does_turtle_exist( world, turtle_id ):
+			return
+		turtle = world.turtles_map.get( turtle_id )
+		if turtle == None:
+			return
+		turtle.is_new_turtle = True
+
+	@staticmethod
+	def create_new_turtle( world : CCWorld, id : str, position : Point3, direction : str ) -> CCTurtle:
+		turtle = CCTurtle(uid=id, position=position, direction=direction)
 		world.turtle_ids.append(turtle.uid)
 		world.turtles_map[turtle.uid] = turtle
 		WorldAPI.push_block( world, position, turtle )
@@ -35,18 +46,26 @@ class CCWorldAPI(WorldAPI):
 		if idx == -1: return
 		world.turtle_ids.pop(idx)
 
-	# @staticmethod
-	# def get_turtle_jobs( world : CCWorld, turtle_id : str ) -> list:
-	# 	turtle : CCTurtle = world.turtles_map.get(turtle_id)
-	# 	if turtle == None: return [ ]
-	# 	raise NotImplementedError
-
-	# @staticmethod
-	# def put_turtle_results( world : CCWorld, turtle_id : str, tracker_id : str, data : list ) -> None:
-	# 	turtle : CCTurtle = world.turtles_map.get(turtle_id)
-	# 	if turtle == None: return
-	# 	turtle.tracker_results[tracker_id] = data
+	@staticmethod
+	def get_turtle_active_job( world : CCWorld, turtle_id : str ) -> list | None:
+		if not CCWorldAPI.does_turtle_exist( world, turtle_id ):
+			return None
+		turtle = world.turtles_map.get( turtle_id )
+		if turtle == None:
+			return None
+		if turtle.active_job == None:
+			return None
+		return [ turtle.active_job, *turtle.active_args ]
 
 	@staticmethod
-	def update_behavior_trees( world : CCWorld ) -> None:
-		raise NotImplementedError
+	def set_turtle_job_results( world : CCWorld, turtle_id : str, results : list ) -> None:
+		if not CCWorldAPI.does_turtle_exist( world, turtle_id ):
+			return None
+		turtle = world.turtles_map.get( turtle_id )
+		if turtle == None:
+			return None
+		# set the results
+		turtle.job_results = results
+		# clear the active job
+		turtle.active_job = None
+		turtle.active_args = None

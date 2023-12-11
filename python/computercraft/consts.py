@@ -94,8 +94,9 @@ class CCTurtle(SolidBlock, Inventory, BaseModel):
 
 	queued_jobs : list[list] = list()
 	active_job : int = None
-	active_tracker : str = None
 	active_args : list = None
+	job_results : list | None = None
 
 class CCWorld(World):
-	turtles : dict[str, CCTurtle] = dict()
+	turtles_map : dict[str, CCTurtle] = dict()
+	turtle_ids : list[str] = list()
