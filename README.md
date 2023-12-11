@@ -127,14 +127,27 @@ The HIVE behavior tree has not been implemented yet and will be in the future on
 	<li>[🚧] Turtle Behavior Trees</li>
 </ul>
 
+<header>TURTLE BEHAVIOR TREES</header>
+<ul>
+	<li>[🚧] Initializer Tree</li>
+	<li>[❌] Main Loop Tree</li>
+	<li>[❌] Low Fuel Resolver Tree</li>
+	<li>[❌] Mine Resource Tree</li>
+	<li>[❌] Dig Tunnel Tree</li>
+	<li>[❌] Mine Ore Vein Tree</li>
+	<li>[❌] Craft Resource Tree</li>
+	<li>[❌] Farm Sapling Tree</li>
+	<li>[❌] Farm Sugar Cane</li>
+	<li>[❌] Procreate Tree</li>
+	<li>[❌] Stranded Behavior Tree</li>
+	<li>[❌] Help Stranded Behavior Tree</li>
+</ul>
+
+
 <header>EXTRA SYSTEMS</header>
 <ul>
 	<li>[❌] 3D World Viewer</li>
 	<li>[❌] 3D World Pathfinding</li>
-</ul>
-
-<header>NEXT SYSTEMS</header>
-<ul>
 	<li>[❌] Manual Turtle Controller</li>
 	<li>[❌] HIVE System when turtle count reaches >10 turtles?</li>
 </ul>
