@@ -186,7 +186,7 @@ BehaviorTrees.INITIALIZER = BehaviorTreeBuilder.build_from_nested(
 			# turtle already has been initialized and will start immediately.
 			TreeNodeFactory.multi_callback_node([
 				lambda *args : print('Turtle has already been initialized, skipping.')
-			], TreeNodeFactory.pass_to_behavior_tree( BehaviorTrees.MAIN_LOOP, None )),
+			], TreeNodeFactory.pass_to_behavior_tree( None, BehaviorTrees.MAIN_LOOP )),
 
 			# turtle does not have the initial requirements
 			TreeNodeFactory.multi_callback_node([
@@ -204,7 +204,7 @@ BehaviorTrees.INITIALIZER = BehaviorTreeBuilder.build_from_nested(
 			TreeNodeFactory.multi_callback_node([
 				lambda *args : print('Turtle has all the requirements to start.'),
 				lambda _, __, ___, turtle : BehaviorFunctions.SET_IS_TURTLE_NEW_TO_FALSE(turtle),
-			], TreeNodeFactory.pass_to_behavior_tree( BehaviorTrees.MAIN_LOOP, None ))
+			], TreeNodeFactory.pass_to_behavior_tree( None, BehaviorTrees.MAIN_LOOP ))
 		],
 		None
 	)

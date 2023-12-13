@@ -1,17 +1,14 @@
 
 from __future__ import annotations
-from re import A
 
 from traceback import print_exception
-
 from enum import Enum
 from dataclasses import dataclass, field
 from uuid import uuid4
 from typing import Callable, Any
 from time import sleep
 from threading import Thread
-
-INVALID_BRANCH_VALUE = 'The passed branch {} is not a callable value, is not a behavior tree node, and is not None.'
+from random import randint
 
 def array_find( array : list, value : Any ) -> int:
 	try: return array.index(value)
@@ -40,10 +37,6 @@ class BehaviorTreeNode:
 	nextNode : BehaviorTreeNode | None = None
 
 class TreeNodeFactory:
-	'''
-	Create nodes for behavior trees.
-	'''
-
 	@staticmethod
 	def callback_node( callback : Callable, nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
 		'''
@@ -99,6 +92,7 @@ class TreeNodeFactory:
 		A condition true-false switching node for the behavior tree.
 		'''
 		assert callable(condition) == True, 'The condition function is not callable!'
+		INVALID_BRANCH_VALUE = 'The {} branch is not a callable value, is not a behavior tree node, or is not None.'
 		assert callable(ifTrueBranch) == True or type(ifTrueBranch) == BehaviorTreeNode or ifTrueBranch == None, INVALID_BRANCH_VALUE.format('IF_TRUE')
 		assert callable(ifFalseBranch) == True or type(ifFalseBranch) == BehaviorTreeNode or ifFalseBranch == None, INVALID_BRANCH_VALUE.format('IF_FALSE')
 		return BehaviorTreeNode(
@@ -135,7 +129,7 @@ class TreeNodeFactory:
 		)
 
 	@staticmethod
-	def hook_behavior_tree( target_bt : BaseBehaviorTree, mutator : Callable | None, nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
+	def hook_behavior_tree( mutator : Callable | None, target_bt : BaseBehaviorTree, nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
 		'''
 		Append to target tree but wait until full completion then continue on here
 		'''
@@ -148,7 +142,7 @@ class TreeNodeFactory:
 		)
 
 	@staticmethod
-	def pass_to_behavior_tree( target_bt : BaseBehaviorTree, mutator : Callable | None ) -> BehaviorTreeNode:
+	def pass_to_behavior_tree( mutator : Callable | None, target_bt : BaseBehaviorTree ) -> BehaviorTreeNode:
 		'''
 		Append to target tree and remove from current tree
 		'''
@@ -167,66 +161,138 @@ class BaseSequenceItem:
 	isUpdating : bool = False
 	data : dict | None = None
 
-	wrapToRoot : bool = True
+	wrapToRoot : bool = False
 	isCompleted : bool = False
 
-def update_sequencer_in_tree( tree : BaseBehaviorTree, sequencer : BaseSequenceItem ) -> None:
-	print(tree.uid, sequencer)
+def parse_node( tree : BaseBehaviorTree, sequencer : BaseSequenceItem, currentNode : BehaviorTreeNode ) -> None:
 
-	# get the current node + id
-	try:
-		currentNode = sequencer.nextNodeCache.pop(0)
-	except:
-		currentNode = None
-	if sequencer.wrapToRoot == True and currentNode == None:
-		currentNode = tree.root_node
-	sequencer.currentNodeId = (currentNode != None and currentNode.id or None)
-
-	if currentNode == None:
-		print('No next node detected, popping sequencer and returning!')
-		sequencer.isCompleted = True
-		tree.pop_sequencer( sequencer )
-		return
-
-	# check for next node
-	if currentNode.nextNode != None:
-		sequencer.nextNodeCache.insert(0, currentNode.nextNode)
-
-	# parse the current node by node-enum.
 	print( sequencer.uid, currentNode.type )
+
+	def parse_multi_type( value : str | Callable | BehaviorTreeNode | Any ) -> None:
+		nonlocal tree, sequencer
+		print(type(value), value)
+		if isinstance(value, BehaviorTreeNode):
+			parse_node( tree, sequencer, value )
+			if value.nextNode != None:
+				parse_node( tree, sequencer, value.nextNode )
+		elif callable( value ) == True:
+			value( tree, sequencer, *sequencer.functionAutoParams )
+		elif type(value) == str:
+			next_node = tree._idToNode.get(value)
+			if next_node == None:
+				raise ValueError('Could not find node given the id: ' + str(value))
+			parse_node( value )
+		else:
+			raise ValueError('Unsupported node value: ' + str(value))
+
 	if currentNode.type ==  NodeEnums.Action:
+
 		action : Callable = currentNode.arguments[0]
-		action( tree, sequencer, *currentNode.arguments )
+		action( tree, sequencer, *sequencer.functionAutoParams )
 
 	elif currentNode.type == NodeEnums.MultiAction:
+
 		actions : list[Callable] = currentNode.arguments
 		for action in actions:
-			action( tree, sequencer, *currentNode.arguments )
+			action( tree, sequencer, *sequencer.functionAutoParams )
 
 	elif currentNode.type == NodeEnums.Delay:
-		raise NotImplementedError
+
+		sleep( currentNode.arguments[0] )
 
 	elif currentNode.type == NodeEnums.RandomSwitch:
-		raise NotImplementedError
+
+		index = randint( 0, len(currentNode.arguments) - 1 )
+		value = currentNode.arguments[index]
+
+		parse_multi_type( value )
 
 	elif currentNode.type == NodeEnums.ConditionSwitch:
-		raise NotImplementedError
+
+		values : list = currentNode.arguments.copy()
+		condition = values.pop(0)
+		branches = values.pop(0)
+
+		index = condition( tree, sequencer, *sequencer.conditionAutoParams )
+		assert type(index) == int, 'The index returned from the condition is not valid! You must return a integer.'
+
+		error_message = 'The index is out of bounds, index is {} whilst the min/max is 0 and {}'.format(index, len(branches)-1)
+		assert index >= 0 and index <= len(branches) - 1, error_message
+
+		parse_multi_type( branches[index] )
 
 	elif currentNode.type == NodeEnums.ConditionTrueFalse:
-		raise NotImplementedError
+
+		values : list = currentNode.arguments.copy()
+		condition = values.pop(0)
+
+		result = condition( tree, sequencer, *sequencer.conditionAutoParams )
+		assert type(result) == bool, 'The result of the ConditionTrueFalse is not a boolean!'
+
+		parse_multi_type( result == True and values[0] or values[1] )
 
 	elif currentNode.type == NodeEnums.ConditionWhileTrue:
-		raise NotImplementedError
+
+		values : list = currentNode.arguments.copy()
+		condition, callback = tuple(values)
+		while condition( tree, sequencer, *sequencer.conditionAutoParams ):
+			callback( tree, sequencer, *sequencer.functionAutoParams )
 
 	elif currentNode.type == NodeEnums.PassToBehaviorTree:
-		raise NotImplementedError
+
+		mutator : Callable = currentNode.arguments[0]
+		target_bt : BaseBehaviorTree = currentNode.arguments[1]
+		if mutator != None:
+			mutator( tree, sequencer )
+		tree.pop_sequencer( sequencer )
+		target_bt.append_sequencer( sequencer )
 
 	elif currentNode.type == NodeEnums.HookBehaviorTree:
-		raise NotImplementedError
+
+		previous_wrapRoot : bool = sequencer.wrapToRoot
+		nextNodeCache : list = sequencer.nextNodeCache
+
+		mutator : Callable = currentNode.arguments[0]
+		target_bt : BaseBehaviorTree = currentNode.arguments[1]
+		if mutator != None:
+			mutator( tree, sequencer )
+
+		tree.pop_sequencer( sequencer )
+
+		sequencer.wrapToRoot = False
+
+		target_bt.append_sequencer( sequencer )
+		target_bt.await_sequencer_completion( sequencer )
+
+		sequencer.nextNodeCache = nextNodeCache
+		sequencer.wrapToRoot = previous_wrapRoot
+
+		tree.append_sequencer( sequencer )
 
 def tree_update_thread( self : BaseBehaviorTree, sequencer : BaseSequenceItem ) -> None:
 	try:
-		update_sequencer_in_tree( self, sequencer )
+
+		# get the current node + id
+		try: currentNode = sequencer.nextNodeCache.pop(0)
+		except: currentNode = None
+
+		if sequencer.wrapToRoot == True and currentNode == None:
+			currentNode = self.root_node
+		sequencer.currentNodeId = (currentNode != None and currentNode.id or None)
+
+		if currentNode == None:
+			print('No next node detected, popping sequencer and returning!')
+			sequencer.isCompleted = True
+			self.pop_sequencer( sequencer )
+			return
+
+		# check for next node
+		if currentNode.nextNode != None:
+			sequencer.nextNodeCache.insert(0, currentNode.nextNode)
+
+		# parse the current node by node-enum.
+		parse_node( self, sequencer, currentNode )
+
 	except Exception as exception:
 		print('An exception has occured trying to update a sequencer item!')
 		print('=================================')
@@ -260,8 +326,6 @@ class BaseBehaviorTree:
 
 		self.update_sparse_graph()
 		self.find_root_node()
-
-		print( self.root_node )
 
 	def append_sequencer( self : BaseBehaviorTree, sequencer : BaseSequenceItem ) -> None:
 		print(f'Appended sequencer to behavior tree of uid {self.uid}')
@@ -335,9 +399,9 @@ class BaseBehaviorTree:
 				elif type(arg) == str:
 					forward.append( arg )
 			if isinstance(node.nextNode, BehaviorTreeNode):
-				forward.append( arg.id )
+				forward.append( node.nextNode.id )
 			elif type(arg) == str:
-				forward.append( arg )
+				forward.append( node.nextNode )
 			self._idToNode[node.id] = forward
 
 	def find_root_node( self : BaseBehaviorTree ) -> BehaviorTreeNode | None:
@@ -399,18 +463,28 @@ class BehaviorTreeBuilder:
 	@staticmethod
 	def convert_nested_to_array( root : BehaviorTreeNode ) -> list[BehaviorTreeNode]:
 		node_array : list[BehaviorTreeNode] = list()
+		passed_array : list[str] = list()
 
 		def search( node : BehaviorTreeNode ) -> None:
 			nonlocal node_array
+			# print(node)
+			if array_find(passed_array, node.id) != -1:
+				return
+			passed_array.append(node.id)
+			node_array.append(node)
 			if node.arguments and len(node.arguments) > 0:
 				for index, arg in enumerate(node.arguments):
+					# print(index, arg)
 					if isinstance( arg, BehaviorTreeNode ):
+						node_array.append(arg)
 						search( arg )
 						# node.arguments[index] = arg.id
 			if node.nextNode != None and isinstance(node.nextNode, BehaviorTreeNode):
+				node_array.append(node)
 				search( node.nextNode )
 				# node.nextNode = node.nextNode.id
 
+		# print( node_array )
 		search( root )
 		return node_array
 
@@ -419,3 +493,47 @@ class BehaviorTreeBuilder:
 		BehaviorTreeBuilder.fill_node_links( root, None, cache=[] )
 		node_array = BehaviorTreeBuilder.convert_nested_to_array( root )
 		return BaseBehaviorTree(uid=uuid, nodes=node_array)
+
+# tests
+# if __name__ == '__main__':
+
+# 	from time import sleep
+
+# 	def p1(_, __):
+# 		print('1')
+# 	def p2(_, __) :
+# 		print('2')
+# 	def p3(_, __) :
+# 		print('3')
+
+# 	def print_extra( _, __ ):
+# 		print('wowzie')
+
+# 	bt : BaseBehaviorTree = BehaviorTreeBuilder.build_from_nested(
+# 		'TEST_TREE',
+# 		TreeNodeFactory.condition_truefalse_node(
+# 			lambda _, __ : randint(0, 1) == 0,
+# 			TreeNodeFactory.random_switch_node([ p1, p2, p3 ], None),
+# 			print_extra,
+# 			None
+# 		)
+# 	)
+
+# 	seq_item = BaseSequenceItem()
+# 	bt.append_sequencer( seq_item )
+
+# 	print("STEP START")
+# 	hasBeenToRoot = False
+# 	steps = 1
+# 	while seq_item.currentNodeId != bt.root_node.id or not hasBeenToRoot:
+# 		if seq_item.currentNodeId == bt.root_node.id:
+# 			hasBeenToRoot = True
+# 		bt.update_sequencers()
+# 		#bt.await_sequencer_completion(seq_item)
+# 		while seq_item.isUpdating:
+# 			sleep(0.1)
+# 		# print(seq_item)
+# 		if seq_item.isCompleted == True:
+# 			break
+# 		steps += 1
+# 	print(f"REACHED FINISH AFTER {steps} steps.")
