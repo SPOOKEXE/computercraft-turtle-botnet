@@ -1,21 +1,19 @@
 
 from __future__ import annotations
+from re import A
 
-import traceback
+from traceback import print_exception
 
-from copy import deepcopy
-from dataclasses import dataclass, field
-from random import randint
-from threading import Thread
-from typing import Any, Callable
 from enum import Enum
+from dataclasses import dataclass, field
 from uuid import uuid4
+from typing import Callable, Any
 from time import sleep
+from threading import Thread
+
+INVALID_BRANCH_VALUE = 'The passed branch {} is not a callable value, is not a behavior tree node, and is not None.'
 
 def array_find( array : list, value : Any ) -> int:
-	'''
-	Try find a value within the array. Returns -1 if not found.
-	'''
 	try: return array.index(value)
 	except: return -1
 
@@ -32,84 +30,136 @@ class NodeEnums(Enum):
 
 @dataclass
 class BehaviorTreeNode:
+	# base node data
 	id : str = field(default_factory=lambda : uuid4().hex)
-	type : NodeEnums = None
 	parentIDs : list | None = None
 	childIDs : list | None = None
+	# actual node data
+	type : NodeEnums = None
+	arguments : list  | None = None
 	nextNode : BehaviorTreeNode | None = None
-
-	# possible values
-	callback : Callable | None = None
-	condition : Callable | None = None
-	branches : list[BehaviorTreeNode | Callable] | None = None
-	if_true_branch : BehaviorTreeNode | Callable | None = None
-	if_false_branch : BehaviorTreeNode | Callable | None = None
-	action : Callable | None = None
-	delay : int | float | None = None
-	behavior_tree : BaseBehaviorTree | None = None
-	mutator : Callable | None = None
 
 class TreeNodeFactory:
 	'''
-	Create behavior tree nodes for a behavior tree.
+	Create nodes for behavior trees.
 	'''
 
-	def action_node( callback : Callable[ [Any], None ], nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
+	@staticmethod
+	def callback_node( callback : Callable, nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
 		'''
-		A action node for the behavior tree.
+		A function callback node for the behavior tree.
 		'''
-		return BehaviorTreeNode( type=NodeEnums.Action, action=callback, nextNode=nextNode )
+		assert callable( callback ) == True, 'Passed callback is NOT a callable item!'
+		return BehaviorTreeNode(
+			type=NodeEnums.Action,
+			arguments=[callback],
+			nextNode=nextNode
+		)
 
-	def multi_action_node( callbacks : list[Callable], nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
+	@staticmethod
+	def multi_callback_node( callbacks : list[Callable], nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
 		'''
-		A action node for the behavior tree.
+		A multi-function-callback node for the behavior tree.
 		'''
-		return BehaviorTreeNode( type=NodeEnums.MultiAction, actions=callbacks, nextNode=nextNode )
+		for index, callback in enumerate(callbacks):
+			assert callable( callback ) == True, f'Callback at index {index} is not a callable item!'
+		return BehaviorTreeNode(
+			type=NodeEnums.MultiAction,
+			arguments=callbacks,
+			nextNode=nextNode
+		)
 
-	def while_condition_node( condition : Callable[ [Any], bool ], callback : Callable[ [Any], None ], nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
-		'''
-		A while-condition node for the behavior tree.
-		'''
-		return BehaviorTreeNode( type=NodeEnums.ConditionWhileTrue, condition=condition, callback=callback, nextNode=nextNode )
-
+	@staticmethod
 	def delay_node( delay : int | float, nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
 		'''
 		A delay node for the behavior tree.
 		'''
-		return BehaviorTreeNode( type=NodeEnums.Delay, delay=delay, nextNode=nextNode )
+		return BehaviorTreeNode(
+			type=NodeEnums.Delay,
+			arguments=[delay],
+			nextNode=nextNode
+		)
 
+	@staticmethod
+	def while_condition_node( condition : Callable[ [Any], bool ], callback : Callable[ [Any], None ], nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
+		'''
+		A while-condition node for the behavior tree.
+		'''
+		assert callable(condition) == True, 'The condition function is not callable!'
+		assert callable(callback) == True, 'The callback function is not callable!'
+		return BehaviorTreeNode(
+			type=NodeEnums.ConditionWhileTrue,
+			arguments=[condition, callback],
+			nextNode=nextNode
+		)
+
+	@staticmethod
 	def condition_truefalse_node( condition : Callable[ [Any], bool ], ifTrueBranch : Callable | BehaviorTreeNode | None, ifFalseBranch : Callable | BehaviorTreeNode | None, nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
 		'''
 		A condition true-false switching node for the behavior tree.
 		'''
-		return BehaviorTreeNode( type=NodeEnums.ConditionTrueFalse, condition=condition, if_true_branch=ifTrueBranch, if_false_branch=ifFalseBranch, nextNode=nextNode )
+		assert callable(condition) == True, 'The condition function is not callable!'
+		assert callable(ifTrueBranch) == True or type(ifTrueBranch) == BehaviorTreeNode or ifTrueBranch == None, INVALID_BRANCH_VALUE.format('IF_TRUE')
+		assert callable(ifFalseBranch) == True or type(ifFalseBranch) == BehaviorTreeNode or ifFalseBranch == None, INVALID_BRANCH_VALUE.format('IF_FALSE')
+		return BehaviorTreeNode(
+			type=NodeEnums.ConditionTrueFalse,
+			arguments=[condition, ifTrueBranch, ifFalseBranch],
+			nextNode=nextNode
+		)
 
-	def condition_switch_node( condition : Callable[ [Any], bool ], branches : list[Callable], nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
+	@staticmethod
+	def condition_switch_node( condition : Callable[ [Any], int ], branches : list[Callable, BehaviorTreeNode], nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
 		'''
 		A condition callback switch node for the behavior tree.
 		'''
-		return BehaviorTreeNode( type=NodeEnums.ConditionSwitch, condition=condition, branches=branches, nextNode=nextNode )
+		assert callable(condition) == True, 'Condition is not a callable!'
+		for index, branch in enumerate(branches):
+			assert callable(branch) or type(branch) == BehaviorTreeNode, f'Branch at index {index} is not a callable or is not a behavior tree node.'
+		return BehaviorTreeNode(
+			type=NodeEnums.ConditionSwitch,
+			arguments=[condition, branches],
+			nextNode=nextNode
+		)
 
-	def random_switch_node( branches : list[Callable], nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
+	@staticmethod
+	def random_switch_node( branches : list[Callable | BehaviorTreeNode], nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
 		'''
 		A random switch node for the behavior tree.
 		'''
-		return BehaviorTreeNode( type=NodeEnums.RandomSwitch, branches=branches, nextNode=nextNode )
+		for index, branch in enumerate(branches):
+			assert callable(branch) or type(branch) == BehaviorTreeNode, f'Branch at index {index} is not a callable or is not a behavior tree node.'
+		return BehaviorTreeNode(
+			type=NodeEnums.RandomSwitch,
+			arguments=branches,
+			nextNode=nextNode
+		)
 
-	def hook_behavior_tree( target_behavior_tree : BaseBehaviorTree, mutator : Callable | None, nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
+	@staticmethod
+	def hook_behavior_tree( target_bt : BaseBehaviorTree, mutator : Callable | None, nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
 		'''
 		Append to target tree but wait until full completion then continue on here
 		'''
-		return BehaviorTreeNode( type=NodeEnums.HookBehaviorTree, behavior_tree=target_behavior_tree, mutator=mutator, nextNode=nextNode )
+		assert isinstance(target_bt, BaseBehaviorTree), 'Target behavior tree is not a behavior tree!'
+		assert callable(mutator) == True or mutator == None, 'Mutator is not a callable value or is not None!'
+		return BehaviorTreeNode(
+			type=NodeEnums.HookBehaviorTree,
+			arguments=[ mutator, target_bt ],
+			nextNode=nextNode
+		)
 
-	def pass_to_behavior_tree( target_behavior_tree : BaseBehaviorTree, mutator : Callable | None ) -> BehaviorTreeNode:
+	@staticmethod
+	def pass_to_behavior_tree( target_bt : BaseBehaviorTree, mutator : Callable | None ) -> BehaviorTreeNode:
 		'''
 		Append to target tree and remove from current tree
 		'''
-		return BehaviorTreeNode( type=NodeEnums.PassToBehaviorTree, behavior_tree=target_behavior_tree, mutator=mutator, nextNode=None )
+		return BehaviorTreeNode(
+			type=NodeEnums.PassToBehaviorTree,
+			arguments=[ mutator, target_bt ]
+		)
 
 @dataclass
 class BaseSequenceItem:
+	uid : str = field(default_factory=lambda : uuid4().hex)
 	currentNodeId : str = None
 	nextNodeCache : list[str] = field(default_factory=list)
 	conditionAutoParams : list[Any] = field(default_factory=list)
@@ -120,280 +170,201 @@ class BaseSequenceItem:
 	wrapToRoot : bool = True
 	isCompleted : bool = False
 
-class BaseBehaviorTree:
-	nodes : list[BehaviorTreeNode]
-	rootNode : BehaviorTreeNode | None = None
+def update_sequencer_in_tree( tree : BaseBehaviorTree, sequencer : BaseSequenceItem ) -> None:
+	print(tree.uid, sequencer)
 
-	_forwardSparseTree : dict[str, str]
+	# get the current node + id
+	try:
+		currentNode = sequencer.nextNodeCache.pop(0)
+	except:
+		currentNode = None
+	if sequencer.wrapToRoot == True and currentNode == None:
+		currentNode = tree.root_node
+	sequencer.currentNodeId = (currentNode != None and currentNode.id or None)
+
+	if currentNode == None:
+		print('No next node detected, popping sequencer and returning!')
+		sequencer.isCompleted = True
+		tree.pop_sequencer( sequencer )
+		return
+
+	# check for next node
+	if currentNode.nextNode != None:
+		sequencer.nextNodeCache.insert(0, currentNode.nextNode)
+
+	# parse the current node by node-enum.
+	print( sequencer.uid, currentNode.type )
+	if currentNode.type ==  NodeEnums.Action:
+		action : Callable = currentNode.arguments[0]
+		action( tree, sequencer, *currentNode.arguments )
+
+	elif currentNode.type == NodeEnums.MultiAction:
+		actions : list[Callable] = currentNode.arguments
+		for action in actions:
+			action( tree, sequencer, *currentNode.arguments )
+
+	elif currentNode.type == NodeEnums.Delay:
+		raise NotImplementedError
+
+	elif currentNode.type == NodeEnums.RandomSwitch:
+		raise NotImplementedError
+
+	elif currentNode.type == NodeEnums.ConditionSwitch:
+		raise NotImplementedError
+
+	elif currentNode.type == NodeEnums.ConditionTrueFalse:
+		raise NotImplementedError
+
+	elif currentNode.type == NodeEnums.ConditionWhileTrue:
+		raise NotImplementedError
+
+	elif currentNode.type == NodeEnums.PassToBehaviorTree:
+		raise NotImplementedError
+
+	elif currentNode.type == NodeEnums.HookBehaviorTree:
+		raise NotImplementedError
+
+def tree_update_thread( self : BaseBehaviorTree, sequencer : BaseSequenceItem ) -> None:
+	try:
+		update_sequencer_in_tree( self, sequencer )
+	except Exception as exception:
+		print('An exception has occured trying to update a sequencer item!')
+		print('=================================')
+		print_exception(exception)
+		print('=================================')
+		print('Sequencer item has been removed.')
+		self.pop_sequencer( sequencer )
+	sequencer.isUpdating = False
+
+class BaseBehaviorTree:
+	uid : str
+	tree_nodes : list[BehaviorTreeNode]
+	root_node : BehaviorTreeNode | None
+
+	_sparseTree : dict[str, str]
 	_idToNode : dict[str, BehaviorTreeNode]
 	_sequencersCache : list[BaseSequenceItem]
+	_updaterEnabled : bool
 
-	autoUpdaterEnabled : bool = False
-	data : Any | None = None
+	# data : Any | None = None
 
-	def __init__( self, nodes : list[BehaviorTreeNode] | None = None ) -> BaseBehaviorTree:
-		if nodes != None: self.nodes = nodes
-		else: self.nodes = []
+	def __init__( self, uid : str = uuid4().hex, nodes : list = [] ) -> BaseBehaviorTree:
+		self.uid = uid
+		self.tree_nodes = nodes
+		self.root_node = None
 
-		self.rootNode = None
-		self._forwardSparseTree = {}
-		self._idToNode = {}
-		self._sequencersCache = []
+		self._sparseTree = dict()
+		self._idToNode = dict()
+		self._sequencersCache = list()
+		self._updaterEnabled = False
 
+		self.update_sparse_graph()
 		self.find_root_node()
-		self.update_graph_tree()
 
-	def _internal_update_sequencer_item( self, sequence_item : BaseSequenceItem ) -> None:
-		'''
-		Internally update the behavior tree sequence item.
-		'''
+		print( self.root_node )
 
-		print(sequence_item.currentNodeId, sequence_item.nextNodeCache)
-
-		currentNodeId : BehaviorTreeNode = None
-		try:
-			currentNodeId = sequence_item.nextNodeCache.pop()
-		except:
-			if sequence_item.wrapToRoot:
-				currentNodeId = self.rootNode.id # starting off with no node
-			else:
-				sequence_item.isCompleted = True
-				return
-		try: currentNode = self._idToNode[currentNodeId]
-		except: raise ValueError('Could not find node from id:', currentNodeId) # currentNode = self.rootNode
-
-		sequence_item.currentNodeId = currentNodeId
-		condArgs = sequence_item.conditionAutoParams!=None and sequence_item.conditionAutoParams or []
-		funcArgs = sequence_item.functionAutoParams!=None and sequence_item.functionAutoParams or []
-
-		if currentNode.nextNode != None:
-			sequence_item.nextNodeCache.insert( 0, currentNode.nextNode.id )
-
-		if currentNode.type == NodeEnums.Action:
-
-			currentNode.action( self, sequence_item, *funcArgs )
-
-		elif currentNode.type == NodeEnums.MultiAction:
-
-			for action in currentNode.actions: action( self, sequence_item, *funcArgs )
-
-		elif currentNode.type == NodeEnums.ConditionSwitch:
-
-			index : int = currentNode.condition( self, sequence_item, *condArgs )
-			assert type(index) == int, 'ConditionSwitch condition callback did not return a number.'
-			assert index > len(currentNode.branches), 'Returned index is out of bounds.'
-			value : Callable | str = currentNode.branches[index]
-
-			if callable(value) == True:
-				value(self, sequence_item, *funcArgs)
-			elif type(value) == str and self._idToNode.get(value) != None:
-				sequence_item.nextNodeCache.insert( 0, value )
-
-		elif currentNode.type == NodeEnums.ConditionTrueFalse:
-
-			trueFalse : bool = currentNode.condition( self, sequence_item, *condArgs )
-			value : Callable | str = trueFalse==True and currentNode.if_true_branch or currentNode.if_false_branch
-			if callable(value) == True:
-				value(self, sequence_item, *funcArgs)
-			elif type(value) == str and self._idToNode.get(value) != None:
-				sequence_item.nextNodeCache.insert( 0, value )
-
-		elif currentNode.type == NodeEnums.ConditionWhileTrue:
-
-			value : bool = currentNode.condition( self, sequence_item, *condArgs )
-			while value == True:
-				currentNode.callback( self, sequence_item, *funcArgs )
-				value = currentNode.condition( self, sequence_item, *condArgs )
-
-		elif currentNode.type == NodeEnums.RandomSwitch:
-
-			randomIndex : int = randint(0, len(currentNode.branches) - 1)
-			try: value = currentNode.branches[randomIndex]
-			except: value = None
-
-			if callable(value) == True:
-				value(self, sequence_item, *funcArgs)
-			elif type(value) == str and self._idToNode.get(value) != None:
-				sequence_item.nextNodeCache.insert(0, value)
-
-		elif currentNode.type == NodeEnums.HookBehaviorTree:
-
-			previous_wrapRoot = sequence_item.wrapToRoot
-			currentNode.behavior_tree.append_sequencer( sequence_item )
-
-			sequence_item.wrapToRoot = False
-			currentNode.behavior_tree.await_sequencer_completion( sequence_item )
-
-			sequence_item.wrapToRoot = previous_wrapRoot
-
-		elif currentNode.type == NodeEnums.PassToBehaviorTree:
-
-			# mutate before popping
-			if currentNode.mutator != None: currentNode.mutator( self, sequence_item )
-			self.pop_sequencer( sequence_item )
-			currentNode.behavior_tree.append_sequencer( sequence_item )
-
-		else:
-			print("NodeEnum is not implemented: ", currentNode.type.name )
-
-	def update_sequencer_items( self, daemon : bool = False ) -> None:
-		'''
-		Update all behavior tree sequence items.
-		'''
-		if len(self._sequencersCache) == 0:
-			return
-
-		def update_thread( sequencer ):
-			nonlocal self
-			try:
-				self._internal_update_sequencer_item( sequencer )
-			except Exception as exception:
-				print('An exception has occured trying to update a sequencer item!')
-				print('=================================')
-				traceback.print_exception(exception)
-				print('=================================')
-				print('Sequencer item has been removed.')
-				self.pop_sequencer( sequencer )
-			sequencer.isUpdating = False
-
-		index : int = 0
-		while index < len(self._sequencersCache):
-			sequencer : BaseSequenceItem = self._sequencersCache[index]
-			if not sequencer.isUpdating:
-				sequencer.isUpdating = True
-				Thread(target=update_thread, args=(sequencer,), daemon=daemon).start()
-			index += 1
-
-	def start_auto_updater( self, delay : float = 1/30, daemon : bool = False ) -> None:
-		'''
-		Start the behavior tree auto updater.
-		'''
-		if self.autoUpdaterEnabled: return
-		print('Starting behavior tree auto-updater.')
-		self.autoUpdaterEnabled = True
-
-		def _thread( ) -> None:
-			nonlocal self, delay
-			while self.autoUpdaterEnabled:
-				self.update_sequencer_items()
-				sleep(delay)
-		Thread(target=_thread, daemon=daemon).start()
-
-	def stop_auto_updater( self ) -> None:
-		'''
-		Stop the behavior tree auto updater
-		'''
-		print('Killing behavior tree auto-updater.')
-		self.autoUpdaterEnabled = False
-
-	def create_sequencer_item( self, *args, **kwargs ) -> BaseSequenceItem:
-		'''
-		Create a new behavior tree sequencer item
-		'''
-		return BaseSequenceItem(*args, **kwargs)
-
-	def append_sequencer( self, sequencer : BaseSequenceItem ) -> None:
-		'''
-		Append a sequencer item to the behavior tree resolver.
-		'''
-		sequencer.nextNodeCache = [self.rootNode.id]
+	def append_sequencer( self : BaseBehaviorTree, sequencer : BaseSequenceItem ) -> None:
+		print(f'Appended sequencer to behavior tree of uid {self.uid}')
+		sequencer.currentNodeId = None
+		sequencer.nextNodeCache = [ self.root_node ]
 		sequencer.isCompleted = False
 		sequencer.isUpdating = False
 		self._sequencersCache.append( sequencer )
 
-	def append_bulk_sequencers( self, sequencers : list[BaseSequenceItem] ) -> None:
-		'''
-		Bulk append sequencer items to the behavior tree resolver.
-		'''
-		for seq in sequencers:
-			seq.currentNodeId = self.rootNode.id
-			seq.isCompleted = False
+	def extend_sequencers( self : BaseBehaviorTree, sequencers : list[BaseSequenceItem] ) -> None:
+		print(f'Extend { len(sequencers) } sequencers to behavior tree of uid {self.uid}')
+		for sequencer in sequencers:
+			sequencer.currentNodeId = None
+			sequencer.nextNodeCache = [ self.root_node ]
+			sequencer.isCompleted = False
+			sequencer.isUpdating = False
 		self._sequencersCache.extend( sequencers )
 
-	def pop_sequencer( self, sequencer : BaseSequenceItem ) -> None:
-		'''
-		Pop a sequencer item to the behavior tree resolver.
-		'''
+	def pop_sequencer( self : BaseBehaviorTree, sequencer : BaseSequenceItem ) -> None:
 		sequencer.currentNodeId = None
-		sequencer.isCompleted = False
-		index : int = array_find( self._sequencersCache, sequencer )
-		while index != -1:
-			self._sequencersCache.pop( index )
-			index : int = array_find( self._sequencersCache, sequencer )
+		sequencer.nextNodeCache = list()
+		sequencer.isCompleted = True
+		sequencer.isUpdating = False
+		while True:
+			try:
+				self._sequencersCache.remove( sequencer )
+			except:
+				break
 
-	def await_sequencer_update( self, sequencer : BaseSequenceItem, interval : float | int = 1/60 ) -> None:
-		while array_find( self._sequencersCache, sequencer ) != -1 and sequencer.isUpdating:
-			sleep(interval)
+	def update_sequencers( self : BaseBehaviorTree, daemon : bool = False ) -> None:
+		if len(self._sequencersCache) == 0:
+			return
+		index : int = 0
+		while index < len(self._sequencersCache):
+			sequencer : BaseSequenceItem = self._sequencersCache[index]
+			if sequencer.isUpdating or sequencer.isCompleted:
+				continue
+			sequencer.isUpdating = True
+			Thread(target=tree_update_thread, args=(self,sequencer,), daemon=daemon).start()
+			index += 1
 
-	def await_sequencer_completion( self, sequencer : BaseSequenceItem, interval : float | int = 1/60 ) -> None:
-		'''
-		Note: will immediately return if 'wrapToRoot' is equal to True.
-		'''
-		while array_find( self._sequencersCache, sequencer ) != -1 and (not sequencer.isCompleted) and (not sequencer.wrapToRoot):
-			sleep(interval)
+	def start_auto_updater( self : BaseBehaviorTree, delay : float = 1/30, daemon : bool = False ) -> None:
+		if self._updaterEnabled:
+			return
+		print(f'Behavior tree of uid {self.uid} is now auto-updating.')
+		self._updaterEnabled = True
 
-	def find_root_node( self ) -> Any:
-		'''
-		Find the behavior tree root node.
-		'''
-		for node in self.nodes:
-			if node.parentIDs == None or len(node.parentIDs) == 0:
-				self.rootNode = node
-				return self.rootNode
-		self.rootNode = None
-		return None
+		def _thread( ) -> None:
+			nonlocal self, delay
+			while self._updaterEnabled:
+				self.update_sequencers()
+				sleep(delay)
+		Thread(target=_thread, daemon=daemon).start()
 
-	def update_graph_tree( self ) -> Any:
-		'''
-		Update the behavior tree connecting graph.
-		'''
-		self._forwardSparseTree = {}
-		self._idToNode = {}
-		for node in self.nodes:
+	def stop_auto_updater( self : BaseBehaviorTree ) -> None:
+		print(f'Behavior tree of uid {self.uid} auto-updating has been stopped.')
+		self._updaterEnabled = False
+
+	def update_sparse_graph( self : BaseBehaviorTree ) -> None:
+		self._sparseTree = dict()
+		self._idToNode = dict()
+		for node in self.tree_nodes:
 			self._idToNode[node.id] = node
-			if self._forwardSparseTree.get(node.id) != None:
+		for node in self.tree_nodes:
+			if self._sparseTree.get( node.id ) != None:
 				continue
 			forward : list[str] = []
-			if node.type == NodeEnums.ConditionSwitch or node.type == NodeEnums.RandomSwitch:
-				forward.extend( list( filter(lambda v : type(v) == str, node.branches) ) )
-			elif node.type == NodeEnums.ConditionTrueFalse:
-				if type(node.if_true_branch) == str:
-					forward.append( node.if_true_branch )
-				if type(node.if_false_branch) == str:
-					forward.append( node.if_false_branch )
-			if type(node.nextNode) == str: forward.append(node.nextNode)
-			self._forwardSparseTree[node.id] = forward
+			for arg in node.arguments:
+				if isinstance(arg, BehaviorTreeNode):
+					forward.append( arg.id )
+				elif type(arg) == str:
+					forward.append( arg )
+			if isinstance(node.nextNode, BehaviorTreeNode):
+				forward.append( arg.id )
+			elif type(arg) == str:
+				forward.append( arg )
+			self._idToNode[node.id] = forward
+
+	def find_root_node( self : BaseBehaviorTree ) -> BehaviorTreeNode | None:
+		value = None
+		for node in self.tree_nodes:
+			if node.parentIDs == None or len(node.parentIDs) == 0:
+				value = node
+				break
+		self.root_node = value
+		return value
 
 class BehaviorTreeBuilder:
 
 	@staticmethod
-	def _search_nested_for_ids( node : BehaviorTreeNode, cache : list = [] ) -> list[str]:
-		if node == None or callable(node) == True or array_find( cache, node.id ) != -1:
-			return cache
-		cache.append(node.id)
-		if node.type == NodeEnums.ConditionSwitch or node.type == NodeEnums.RandomSwitch:
-			for branch in node.branches:
-				BehaviorTreeBuilder._search_nested_for_ids( branch, cache=cache )
-		elif node.type == NodeEnums.ConditionTrueFalse:
-			BehaviorTreeBuilder._search_nested_for_ids( node.if_true_branch, cache=cache )
-			BehaviorTreeBuilder._search_nested_for_ids( node.if_false_branch, cache=cache )
-		return cache
+	def fill_node_links( node : BehaviorTreeNode, parent : BehaviorTreeNode | None, cache : list = [] ) -> list[BehaviorTreeNode]:
+		if node == None or callable(node) == True:
+			return
 
-	@staticmethod
-	def _search_nested_fill_links( node : BehaviorTreeNode, parent : BehaviorTreeNode | None = None, cache : list = [] ) -> None:
-		'''
-		Edit all the nodes within the target tree
-		'''
-		if node == None or callable(node) == True: return
-
-		# check parent
 		if parent != None:
-			if parent.childIDs == None: parent.childIDs = []
+			if parent.childIDs == None:
+				parent.childIDs = []
 			if array_find( parent.childIDs, node.id ) == -1:
 				parent.childIDs.append(node.id)
 
-		# check if node was already searched
-		if array_find( cache, node.id ) != -1: return
+		# skip repeats (cyclic avoidance)
+		if array_find( cache, node.id ) != -1:
+			return
 		cache.append(node.id)
 
 		if node.childIDs == None:
@@ -404,97 +375,47 @@ class BehaviorTreeBuilder:
 		if parent != None and array_find(node.parentIDs, parent.id) == -1:
 			node.parentIDs.append( parent.id )
 
-		if node.type == NodeEnums.ConditionSwitch or node.type == NodeEnums.RandomSwitch:
-			for branch in node.branches:
-				BehaviorTreeBuilder._search_nested_fill_links( branch, parent=node, cache=cache )
-		elif node.type == NodeEnums.ConditionTrueFalse:
-			BehaviorTreeBuilder._search_nested_fill_links( node.if_true_branch, parent=node, cache=cache )
-			BehaviorTreeBuilder._search_nested_fill_links( node.if_false_branch, parent=node, cache=cache )
+		if node.arguments != None and len(node.arguments) > 0:
+			for value in node.arguments:
+				if not isinstance( value, BehaviorTreeNode ):
+					continue
+				BehaviorTreeBuilder.fill_node_links( value, node, cache=cache )
 
-		nextnode : BehaviorTreeNode = node.nextNode
-		if nextnode != None:
-			if nextnode.childIDs == None: nextnode.childIDs = []
-			if nextnode.parentIDs == None: nextnode.parentIDs = []
-			if array_find( nextnode.parentIDs, node.id ) == -1: nextnode.parentIDs.append( node.id )
-			if array_find( node.childIDs, nextnode.id ) == -1: node.childIDs.append( nextnode.id )
+		# next nodes
+		nextNode : BehaviorTreeNode | None = node.nextNode
+		if nextNode == None:
+			return
+
+		if nextNode.childIDs == None:
+			nextNode.childIDs = []
+		if nextNode.parentIDs == None:
+			nextNode.parentIDs = []
+
+		if array_find( nextNode.parentIDs, node.id ) == -1:
+			nextNode.parentIDs.append( node.id )
+		if array_find( node.childIDs, nextNode.id ) == -1:
+			node.childIDs.append( nextNode.id )
 
 	@staticmethod
-	def _convert_nested_to_array( root : BehaviorTreeNode ) -> list:
-
-		node_array : list[BehaviorTreeNode] = []
+	def convert_nested_to_array( root : BehaviorTreeNode ) -> list[BehaviorTreeNode]:
+		node_array : list[BehaviorTreeNode] = list()
 
 		def search( node : BehaviorTreeNode ) -> None:
 			nonlocal node_array
+			if node.arguments and len(node.arguments) > 0:
+				for index, arg in enumerate(node.arguments):
+					if isinstance( arg, BehaviorTreeNode ):
+						search( arg )
+						# node.arguments[index] = arg.id
+			if node.nextNode != None and isinstance(node.nextNode, BehaviorTreeNode):
+				search( node.nextNode )
+				# node.nextNode = node.nextNode.id
 
-			if node == None or callable(node) == True or array_find(node_array, node) != -1:
-				return
-			node_array.append(node)
-
-			if node.type == NodeEnums.ConditionSwitch or node.type == NodeEnums.RandomSwitch:
-				list_of_branches = node.branches[0]
-				if type(list_of_branches) == list:
-					node.branches = [ branch.id for branch in list_of_branches ]
-					for branch in list_of_branches: search(branch)
-			elif node.type == NodeEnums.ConditionTrueFalse:
-				trueBranch = node.if_true_branch
-				falseBranch = node.if_false_branch
-				if type(trueBranch) == BehaviorTreeNode:
-					node.if_true_branch = trueBranch.id
-				if type(falseBranch) == BehaviorTreeNode:
-					node.if_false_branch = falseBranch.id
-				search( trueBranch )
-				search( falseBranch )
-
-			nnode = node.nextNode
-			if nnode != None:
-				node.nextNode = nnode.id
-				search(nnode)
-
-		search(root)
+		search( root )
 		return node_array
 
 	@staticmethod
-	def build_from_nested_dict( root : BehaviorTreeNode ) -> BaseBehaviorTree:
-		root = deepcopy(root)
-		# deep search for nodes and get all of their ids
-		# _ = BehaviorTreeBuilder._search_nested_for_ids( root )
-		# deep search nodes and compute child/parent links.
-		BehaviorTreeBuilder._search_nested_fill_links( root )
-		# create a node array
-		nodeArray : list[BehaviorTreeNode] = BehaviorTreeBuilder._convert_nested_to_array( root )
-		# return a new behavior tree
-		return BaseBehaviorTree(nodes=nodeArray)
-
-# tests
-# if __name__ == '__main__':
-
-# 	from time import sleep
-
-# 	def p1(_, __): print('1')
-# 	def p2(_, __) : print('2')
-# 	def p3(_, __) : print('3')
-
-# 	def print_extra( _, __ ): print('wowzie')
-
-# 	bt : BaseBehaviorTree = BehaviorTreeBuilder.build_from_nested_dict(
-# 		TreeNodeFactory.condition_truefalse_node(
-# 			lambda _, __ : randint(0, 1) == 0,
-# 			TreeNodeFactory.random_switch_node([ p1, p2, p3 ], None),
-# 			print_extra,
-# 			None
-# 		)
-# 	)
-
-# 	seq_item = bt.create_sequencer_item()
-# 	bt.append_sequencer( seq_item )
-
-# 	print("STEP START")
-# 	hasBeenToRoot = False
-# 	steps = 1
-# 	while seq_item.currentNodeId != bt.rootNode.id or not hasBeenToRoot:
-# 		if seq_item.currentNodeId == bt.rootNode.id: hasBeenToRoot = True
-# 		bt.update_sequencer_items()
-# 		bt.await_sequencer_complete(seq_item)
-# 		print(seq_item)
-# 		steps += 1
-# 	print(f"REACHED ROOT AFTER {steps} steps.")
+	def build_from_nested( uuid : str, root : BehaviorTreeNode ) -> BaseBehaviorTree:
+		BehaviorTreeBuilder.fill_node_links( root, None, cache=[] )
+		node_array = BehaviorTreeBuilder.convert_nested_to_array( root )
+		return BaseBehaviorTree(uid=uuid, nodes=node_array)

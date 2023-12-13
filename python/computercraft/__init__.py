@@ -8,7 +8,7 @@ from .ccminecraft import (
 )
 
 from .consts import (
-	CCTurtle, CCWorld, TurtleActions
+	CCTurtle, CCWorld, TurtleActions, Item
 )
 
 from .ccrecipes import (

@@ -7,7 +7,7 @@ from websockets.server import WebSocketServerProtocol
 from enum import Enum
 
 from computercraft import (
-	CCWorld, CCWorldAPI, BaseWebSocket
+	CCWorld, CCWorldAPI, CCTurtle, BaseWebSocket
 )
 
 from minecraft import (
@@ -56,14 +56,15 @@ class TurtleWebsocket( BaseWebSocket ):
 		'''
 		Check if the turtle exists.
 		'''
-		does_exist = CCWorldAPI.does_turtle_exist( self.world, turtle_id )
-		return self.construct_response( data = does_exist )
+		does_exist = CCWorldAPI.get_turtle_from_id( self.world, turtle_id )
+		return self.construct_response( data = does_exist != None )
 
 	async def create_turtle( self, turtle_id : str, xyz : list, direction : str ) -> None:
 		'''
 		Create a new turtle.
 		'''
-		if CCWorldAPI.does_turtle_exist( self.world, turtle_id ):
+		turtle = CCWorldAPI.get_turtle_from_id( self.world, turtle_id )
+		if turtle != None:
 			return self.construct_response( message='The turtle already exists!' )
 
 		if not is_valid_xyz( xyz ):
@@ -109,20 +110,32 @@ class TurtleWebsocket( BaseWebSocket ):
 		'''
 		Get the current turtle job if available.
 		'''
-		if not CCWorldAPI.does_turtle_exist( self.world, turtle_id ):
+		turtle : CCTurtle = CCWorldAPI.get_turtle_from_id( self.world, turtle_id )
+		if turtle == None:
 			return self.construct_response(
 				success=False,
 				message='The turtle does not exist!'
 			)
 
-		active_job = CCWorldAPI.get_turtle_active_job( self.world, turtle_id )
-		return self.construct_response( data = (active_job or False) )
+		print(turtle)
+
+		if turtle.active_job == None and len(turtle.job_queue) > 0:
+			next_job = turtle.job_queue.pop(0)
+			turtle.active_job = next_job.pop(0)
+			turtle.active_args = next_job
+
+		job = turtle.active_job
+		if job == None:
+			return self.construct_response( data =False )
+
+		args = turtle.active_args
+		return self.construct_response( data = [ job, *args ] )
 
 	async def set_turtle_job_results( self, turtle_id : str, results : list ) -> None:
 		'''
 		Set the result of a turtle's job.
 		'''
-		if not CCWorldAPI.does_turtle_exist( self.world, turtle_id ):
+		if not CCWorldAPI.get_turtle_from_id( self.world, turtle_id ):
 			return self.construct_response(
 				success=False,
 				message='The turtle does not exist!'
@@ -134,7 +147,7 @@ class TurtleWebsocket( BaseWebSocket ):
 				message=f'The results is an invalid type, expected list but got { type(results) }'
 			)
 
-		CCWorldAPI.set_turtle_job_results(
+		CCWorldAPI.set_job_results(
 			self.world,
 			turtle_id,
 			results
@@ -142,7 +155,7 @@ class TurtleWebsocket( BaseWebSocket ):
 
 		return self.construct_response( message='The results have been set.' )
 
-	async def handle_turtle_request( self, ws : WebSocketServerProtocol, data : dict ) -> None:
+	async def handle_turtle_request( self, data : dict ) -> dict:
 		'''
 		Handle an incoming turtle API request.
 		'''
@@ -198,7 +211,7 @@ class TurtleWebsocket( BaseWebSocket ):
 
 		try:
 			print( jsdata )
-			response = await self.handle_turtle_request( ws, jsdata )
+			response = await self.handle_turtle_request( jsdata )
 			print( response )
 		except Exception as exception:
 			print("==============")

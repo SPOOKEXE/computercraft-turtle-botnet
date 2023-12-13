@@ -92,10 +92,10 @@ class CCTurtle(SolidBlock, Inventory):
 	left_hand : Item = None
 	right_hand : Item = None
 
-	queued_jobs : list[list] = list()
 	active_job : int = None
 	active_args : list = None
-	job_results : list | None = None
+	job_queue : list = list()
+	tracker_results : dict = dict()
 
 class CCWorld(World):
 	turtles_map : dict[str, CCTurtle] = dict()

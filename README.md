@@ -124,6 +124,7 @@ The HIVE behavior tree has not been implemented yet and will be in the future on
 	<li>[✔️] Parse Incoming Server Requests</li>
 	<li>[✔️] Turtle State Persistence Data</li>
 	<li>[✔️] Behavior Tree Framework</li>
+	<li>[🚧] Save Turtle Current Behavior Tree & Cache Values (State Persistence)</li>
 	<li>[🚧] Turtle Behavior Trees</li>
 </ul>
 
