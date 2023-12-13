@@ -136,6 +136,14 @@ class BehaviorTrees:
 	MAIN_LOOP : BaseBehaviorTree
 	INITIALIZER : BaseBehaviorTree
 
+BehaviorTrees.LOW_FUEL_RESOLVER = BehaviorTreeBuilder.build_from_nested(
+	'LOW_FUEL_RESOLVER',
+	TreeNodeFactory.callback_node(
+		lambda *args : print('Hello LOW_FUEL_RESOLVER!'),
+		None
+	)
+)
+
 # main brain loop
 def main_switch_condition( _ , __, ___, turtle : CCTurtle ) -> int:
 	print('MAIN SWITCH, GOT TURTLE:', turtle.uid)
@@ -152,9 +160,9 @@ BehaviorTrees.MAIN_LOOP = BehaviorTreeBuilder.build_from_nested(
 		[
 			# has not enough fuel so resolve the issue
 			TreeNodeFactory.callback_node(
-				lambda _, __, ___, turtle : print(f'{turtle.uid} needs more fuel! Start the LOW_FUEL_RESOLVER tree'),
-				None
-			), # BehaviorTrees.LOW_FUEL_RESOLVER,
+				lambda _, __, ___, turtle : print(f'{turtle.uid} needs more fuel! Start the LOW_FUEL_RESOLVER tree.'),
+				TreeNodeFactory.pass_to_behavior_tree(None, BehaviorTrees.LOW_FUEL_RESOLVER)
+			),
 			# has enough fuel so focus on other activities
 			TreeNodeFactory.callback_node(
 				lambda _, __, ___, turtle : print(f'Turtle {turtle.uid} has minimum coal requirement but nothing else has been implemented!'),
