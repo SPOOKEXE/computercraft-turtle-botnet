@@ -110,26 +110,16 @@ class TurtleWebsocket( BaseWebSocket ):
 		'''
 		Get the current turtle job if available.
 		'''
-		turtle : CCTurtle = CCWorldAPI.get_turtle_from_id( self.world, turtle_id )
-		if turtle == None:
+		if not CCWorldAPI.get_turtle_from_id( self.world, turtle_id ):
 			return self.construct_response(
 				success=False,
 				message='The turtle does not exist!'
 			)
 
-		print(turtle)
-
-		if turtle.active_job == None and len(turtle.job_queue) > 0:
-			next_job = turtle.job_queue.pop(0)
-			turtle.active_job = next_job.pop(0)
-			turtle.active_args = next_job
-
-		job = turtle.active_job
+		job = CCWorldAPI.get_active_job( self.world, turtle_id )
 		if job == None:
 			return self.construct_response( data =False )
-
-		args = turtle.active_args
-		return self.construct_response( data = [ job, *args ] )
+		return self.construct_response( data = job )
 
 	async def set_turtle_job_results( self, turtle_id : str, results : list ) -> None:
 		'''
@@ -147,12 +137,7 @@ class TurtleWebsocket( BaseWebSocket ):
 				message=f'The results is an invalid type, expected list but got { type(results) }'
 			)
 
-		CCWorldAPI.set_job_results(
-			self.world,
-			turtle_id,
-			results
-		)
-
+		CCWorldAPI.set_job_results( self.world, turtle_id, results )
 		return self.construct_response( message='The results have been set.' )
 
 	async def handle_turtle_request( self, data : dict ) -> dict:

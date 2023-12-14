@@ -34,6 +34,15 @@ local function findItemSlotsByPattern( pattern )
 	return slots
 end
 
+local function findEmptyItemSlot()
+	for index = 1, 16 do
+		if not turtle.getItemDetail( index ) then
+			return index
+		end
+	end
+	return false
+end
+
 local function findFacingDirection()
 	local signSlots = findItemSlotsByPattern( 'minecraft:(%a+)_sign' )
 	if #signSlots == 0 then
@@ -51,8 +60,7 @@ local function findFacingDirection()
 end
 
 local function getEquippedItems()
-	local items = readInventory()
-	local index = tableFind(items, false)
+	local index = findEmptyItemSlot()
 	if not index then
 		return false
 	end

@@ -51,34 +51,36 @@ class CCWorldAPI(WorldAPI):
 		world.turtle_ids.pop(idx)
 
 	@staticmethod
-	def get_active_job( world : CCWorld, turtle_id : str ) -> list | None:
+	def get_active_job( world : CCWorld, turtle_id : str ) -> list:
 		turtle = CCWorldAPI.get_turtle_from_id( world, turtle_id )
-		if turtle == None:
+		if turtle == None: return None
+		if len(turtle.job_queue) == 0: return None
+		current_job : list = turtle.job_queue[0]
+		tid : str = current_job[0]
+		if turtle.tracker_results.get( tid ) != None:
 			return None
-		if turtle.active_job == None:
-			return None
-		return turtle.job_queue[0]
+		return current_job[1:]
 
 	@staticmethod
 	def set_job_results( world : CCWorld, turtle_id : str, results : list ) -> None:
 		turtle = CCWorldAPI.get_turtle_from_id( world, turtle_id )
 		if turtle == None:
-			return
-		active_job : list = turtle.job_queue.pop(0)
-		tracker_id : str = active_job.pop(0)
-		turtle.tracker_results[ tracker_id ] = results
+			return None
+		current_job = turtle.job_queue[0]
+		tid = current_job[0]
+		turtle.tracker_results[tid] = results
 
 	@staticmethod
-	def yield_turtle_job( world : CCWorld, turtle_id : str, job : int, *args ) -> dict | list | bool:
+	def yield_turtle_job( world : CCWorld, turtle_id : str, job : TurtleActions, *args ) -> dict | list | bool:
+		print('YIELD TURTLE JOB: ', turtle_id, job.name)
 		turtle = CCWorldAPI.get_turtle_from_id( world, turtle_id )
 		if turtle == None:
 			return None
 		tracker_id : str = uuid4().hex
-		turtle.job_queue.append([ tracker_id, job, *args ])
-		while turtle.job_queue[0][0] != tracker_id:
-			sleep(0.1)
+		turtle.job_queue.append([ tracker_id, job.name, *args ])
 		while turtle.tracker_results.get( tracker_id ) == None:
-			sleep(0.1)
+			sleep(0.01)
+		turtle.job_queue.pop(0) # remove item from queue
 		return turtle.tracker_results.pop( tracker_id )
 
 	@staticmethod

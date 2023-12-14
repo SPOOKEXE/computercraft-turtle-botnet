@@ -129,7 +129,7 @@ class TreeNodeFactory:
 		)
 
 	@staticmethod
-	def hook_behavior_tree( mutator : Callable | None, target_bt : BaseBehaviorTree, nextNode : BehaviorTreeNode | None ) -> BehaviorTreeNode:
+	def hook_behavior_tree( mutator : Callable | None, target_bt : BaseBehaviorTree ) -> BehaviorTreeNode:
 		'''
 		Append to target tree but wait until full completion then continue on here
 		'''
@@ -137,8 +137,7 @@ class TreeNodeFactory:
 		assert callable(mutator) == True or mutator == None, 'Mutator is not a callable value or is not None!'
 		return BehaviorTreeNode(
 			type=NodeEnums.HookBehaviorTree,
-			arguments=[ mutator, target_bt ],
-			nextNode=nextNode
+			arguments=[ mutator, target_bt ]
 		)
 
 	@staticmethod
@@ -159,18 +158,18 @@ class BaseSequenceItem:
 	conditionAutoParams : list[Any] = field(default_factory=list)
 	functionAutoParams : list[Any] = field(default_factory=list)
 	isUpdating : bool = False
-	data : dict | None = None
+	data : dict = field(default_factory=dict)
 
 	wrapToRoot : bool = False
 	isCompleted : bool = False
 
 def parse_node( tree : BaseBehaviorTree, sequencer : BaseSequenceItem, currentNode : BehaviorTreeNode ) -> None:
 
-	print( sequencer.uid, currentNode.type )
+	# print( sequencer.uid, currentNode.type )
 
 	def parse_multi_type( value : str | Callable | BehaviorTreeNode | Any ) -> None:
 		nonlocal tree, sequencer
-		print(type(value), value)
+		# print(type(value), value)
 		if isinstance(value, BehaviorTreeNode):
 			parse_node( tree, sequencer, value )
 			if value.nextNode != None:
@@ -355,12 +354,19 @@ class BaseBehaviorTree:
 			except:
 				break
 
+	def await_sequencer_completion( self : BaseBehaviorTree, sequencer : BaseSequenceItem ) -> None:
+		while sequencer.isUpdating:
+			sleep(0.1)
+
 	def update_sequencers( self : BaseBehaviorTree, daemon : bool = False ) -> None:
 		if len(self._sequencersCache) == 0:
 			return
 		index : int = 0
 		while index < len(self._sequencersCache):
-			sequencer : BaseSequenceItem = self._sequencersCache[index]
+			try:
+				sequencer : BaseSequenceItem = self._sequencersCache[index]
+			except:
+				break
 			if sequencer.isUpdating or sequencer.isCompleted:
 				continue
 			sequencer.isUpdating = True

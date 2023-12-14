@@ -66,21 +66,19 @@ print('== Turtle Main Loop ==')
 
 local function ParseJobResponse( response )
 	local job_args = response['data']
-
 	if not job_args then
 		print('No jobs are available from the server.')
 		return
 	end
 
 	local job_name = table.remove(job_args, 1)
-
 	local actionFunc = actions[job_name]
 	if actionFunc then
 		local results = { actionFunc( table.unpack(job_args) ) }
 		socket.SetJobResults( TURTLE_UNIQUE_ID, results )
 	else
 		print('Target job does not exist!', job_name)
-		socket.SetJobResults( TURTLE_UNIQUE_ID, false )
+		socket.SetJobResults( TURTLE_UNIQUE_ID, {false} )
 	end
 end
 

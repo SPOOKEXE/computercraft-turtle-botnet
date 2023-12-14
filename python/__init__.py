@@ -73,4 +73,4 @@ if __name__ == '__main__':
 			item.stop_auto_updater()
 
 	# save world
-	save_world_data( world, filepath )
+	# save_world_data( world, filepath )

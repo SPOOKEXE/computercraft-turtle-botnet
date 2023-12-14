@@ -97,6 +97,8 @@ class CCTurtle(SolidBlock, Inventory):
 	job_queue : list = list()
 	tracker_results : dict = dict()
 
+	MAX_FUEL : int = 20000 # NORMAL TURTLE FUEL LIMIT
+
 class CCWorld(World):
 	turtles_map : dict[str, CCTurtle] = dict()
 	turtle_ids : list[str] = list()
