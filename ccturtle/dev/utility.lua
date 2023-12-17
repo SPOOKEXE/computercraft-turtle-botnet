@@ -4,7 +4,9 @@ local read
 local utility = {}
 
 function utility.StringSplit( input, separator )
-	if separator == nil then separator = "%s" end
+	if separator == nil then
+		separator = "%s"
+	end
 	local t = {}
 	for str in string.gmatch(input, "([^"..separator.."]+)") do
 		table.insert(t, str)
@@ -17,7 +19,8 @@ function utility.IsValidCoordinatesString( value )
 	if #splits ~= 3 then
 		return false, 'Incorrectly formatted, enter as "[X] [Y] [Z]".'
 	end
-	for _, item in ipairs(splits) do
+	for index = 1, #splits do
+		local item = splits[index]
 		if tonumber(item) and (not string.find(item, '.')) and (not string.find(item, 'e')) then
 			return false, 'Only whole real integer numbers are allowed as X/Y/Z coordinates.'
 		end

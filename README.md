@@ -175,11 +175,8 @@ Another video resource I used as a 'goal' for the project was to visualize what 
 **Video:** https://www.youtube.com/watch?v=pwKRbsDbxqc
 
 
-Finally, the last video reference I used was for general application to any turtle program; to get an idea of state persistence.
-
-<img src="docs/readme/credits-resource-3.png" alt="YouTube Video Thumbnail" width="600px"></img>
-
-**Video:** https://www.youtube.com/watch?v=U7HWMfgPGxo
-
-
 Apart from the first reference for code, I did all the code from the ground up.
+
+## Other Documentation
+
+https://www.computercraft.info/forums2/index.php?/topic/24574-optimization-and-micro-optimization/

@@ -1,34 +1,30 @@
 local fs, turtle, peripheral, sleep
 -->> IGNORE ABOVE IN PRODUCTION <<--
 
-local SIGN_ROTATION_TO_DIRECTION = { ['8'] = 'south', ['12'] = 'west', ['0'] = 'north', ['4'] = 'east', }
-
-local function tableFind( array, value )
-	for index, item in ipairs(array) do
-		if item == value then
-			return index
-		end
-	end
-	return nil
-end
+local SIGN_ROTATION_TO_DIRECTION = {
+	['8'] = 'south',
+	['12'] = 'west',
+	['0'] = 'north',
+	['4'] = 'east',
+}
 
 local function readInventory()
-	local items = { }
+	local items = { nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil }
 	for index = 1, 16 do
 		local data = turtle.getItemDetail( index )
 		if data then
-			table.insert(items, data)
+			items[#items+1] = data
 		end
 	end
 	return items
 end
 
 local function findItemSlotsByPattern( pattern )
-	local slots = { }
+	local slots = { nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil }
 	for index = 1, 16 do
 		local data = turtle.getItemDetail( index )
-		if data and string.match(data.name, pattern) then
-			table.insert(slots, index)
+		if data and string.find(data.name, pattern) then
+			slots[#slots+1] = index
 		end
 	end
 	return slots
@@ -64,19 +60,21 @@ local function getEquippedItems()
 	if not index then
 		return false
 	end
-	local equipped = {}
+	local equipped = { false, false }
 	turtle.select( index )
 	turtle.equipLeft()
-	table.insert(equipped, turtle.getItemDetail() or false)
+	equipped[1] = turtle.getItemDetail() or false
 	turtle.equipLeft()
 	turtle.equipRight()
-	table.insert(equipped, turtle.getItemDetail() or false)
+	equipped[2] = turtle.getItemDetail() or false
 	turtle.equipRight()
 	return equipped
 end
 
 local function populateDisk()
-	assert( fs.isDir('/disk'), "No disk inserted into disk drive." )
+	if not fs.isDir('/disk') then
+		error("No disk inserted into disk drive.")
+	end
 	local source = fs.open('startup.lua', 'r').readAll()
 	-- create a new startup script inside the turtle that loads the actual turtle brain into the turtle itself
 	source = 'local SRC = [===[' .. source .. ']' .. '===]'
@@ -120,16 +118,15 @@ local function procreate( disk_drive_slot, floppy_slot, turtle_slot, fuel_slot )
 	turtle.dig('left')
 end
 
+local function getTurtleInfo()
+	return {
+		fuel = turtle.getFuelLevel(),
+		inventory = readInventory(),
+		equipped = getEquippedItems(),
+	}
+end
+
 local actions = {
-
-	getTurtleInfo = function ()
-		return {
-			fuel = turtle.getFuelLevel(),
-			inventory = readInventory(),
-			equipped = getEquippedItems(),
-		}
-	end,
-
 	-- Movement actions
 	forward = turtle.forward,
 	backward = turtle.backward,
@@ -179,6 +176,7 @@ local actions = {
 	transferTo = turtle.transferTo,
 
 	-- CUSTOMS
+	getTurtleInfo = getTurtleInfo,
 	getDirectionFromSign = findFacingDirection,
 	readInventory = readInventory,
 	findItemSlotsByPattern = findItemSlotsByPattern,
