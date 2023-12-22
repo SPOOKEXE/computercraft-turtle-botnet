@@ -131,19 +131,19 @@ class BehaviorFunctions:
 		return True # has requirements
 
 	@staticmethod
-	def HAS_NEW_TURTLE_REQUIREMENT( turtle : CCTurtle ) -> bool:
+	def HAS_NEW_TURTLE_REQUIREMENT( turtle : CCTurtle ) -> tuple[bool, str | None]:
 		# check for iron pickaxe and crafting table
 		if not BehaviorFunctions.HAS_ITEMS_IN_INVENTORY( turtle, [
 			('minecraft:iron_pickaxe', 1),
 			('minecraft:iron_shovel', 1),
 			('minecraft:iron_axe', 1),
 			('minecraft:crafting_table', 1),
-		] ): return False
+		] ): return False, 'Required Tools'
 		# check for fuel / coal_block
 		if turtle.fuel < 800 and not BehaviorFunctions.HAS_ITEMS_IN_INVENTORY( turtle, [('minecraft:coal_block', 1)] ):
-			return False
+			return False, 'Not enough fuel and no fuel in inventory.'
 		# has requirements
-		return True
+		return True, 'Has all the requirements.'
 
 	@staticmethod
 	def HAS_LOW_FUEL( turtle : CCTurtle ) -> bool:
@@ -164,6 +164,7 @@ class BehaviorFunctions:
 	def REFUEL_USING_PATTERN( world : CCWorld, turtle : CCTurtle, pattern : str ) -> None:
 		result = BehaviorFunctions.FIND_SLOTS_BY_PATTERN( world, turtle, pattern )
 		if len(result) == 0:
+			print('no fuel items in inventory!')
 			return
 		slots = [ s-1 for s in result[0] ]
 		print( 'FUEL ITEMS:', slots )
@@ -235,18 +236,22 @@ class BehaviorFunctions:
 	# mine to the Y-level
 	def MINE_TO_Y_LEVEL( world : CCWorld, turtle : CCTurtle, y_level : int ) -> bool:
 		if y_level == turtle.position.y:
+			print('at y-level')
 			return True # already here
 		direction = (y_level - turtle.position.y) < 0 and -1 or 1
 		distance : int = abs( y_level - turtle.position.y )
 		if y_level < turtle.position.y:
+			print('dig down')
 			DIG_DIR = TurtleActions.digBelow
 			MOVE_DIR = TurtleActions.down
 		else:
+			print('dig up')
 			DIG_DIR = TurtleActions.digAbove
 			MOVE_DIR = TurtleActions.up
 
 		for _ in range(distance):
 			if turtle.fuel == 0:
+				print('no fuel!')
 				break
 
 			block_exists, block_data = tuple(CCWorldAPI.yield_turtle_job( world, turtle.uid, TurtleActions.inspectBelow ))
@@ -335,9 +340,11 @@ BehaviorTrees.MINE_ORE_RESOURCE = BehaviorTreeBuilder.build_from_nested(
 	)
 )
 
-def low_fuel_resolver_switch( _, __, ___, turtle ) -> int:
+def low_fuel_resolver_switch( _, __, world : CCWorld, turtle : CCTurtle ) -> int:
+	BehaviorFunctions.GET_TURTLE_INFO( world, turtle )
 	inventory_mapping = BehaviorFunctions.COUNT_INVENTORY_ITEMS( turtle )
-	if inventory_mapping.get('minecraft:coal') == None:
+	print( 'LOW_FUEL_RESOLVER:', inventory_mapping )
+	if inventory_mapping.get('minecraft:coal') == None and inventory_mapping.get('minecraft:coal_block') == None:
 		return 1 # no coal, go mining
 	return 0 # burn coal in inventory, return and check again
 
@@ -348,6 +355,7 @@ BehaviorTrees.LOW_FUEL_RESOLVER = BehaviorTreeBuilder.build_from_nested(
 		[
 			# burn the coal in the inventory
 			TreeNodeFactory.multi_callback_node([
+				lambda _, __, ___, turtle : print('Refuel using pattern: ', turtle.uid),
 				lambda _, __, world, turtle : BehaviorFunctions.REFUEL_USING_PATTERN(world, turtle, 'minecraft:coal'),
 				lambda _, __, world, turtle : BehaviorFunctions.REFUEL_USING_PATTERN(world, turtle, 'minecraft:coal_block'),
 			], None),
@@ -395,14 +403,16 @@ BehaviorTrees.MAIN_LOOP = BehaviorTreeBuilder.build_from_nested(
 	)
 )
 
-def initializer_switch( _, __, ___, turtle : CCTurtle ) -> int:
-	print('INITIALIZER SWITCH, GOT TURTLE:', turtle.uid)
-	if BehaviorFunctions.IS_BRAND_NEW_TURTLE( turtle ):
+def initializer_switch( _, __, world : CCWorld, turtle : CCTurtle ) -> int:
+	# print('INITIALIZER SWITCH, GOT TURTLE:', turtle.uid)
+	if not BehaviorFunctions.IS_BRAND_NEW_TURTLE( turtle ):
+		CCWorldAPI.untracked_turtle_job( world, turtle.uid, TurtleActions.print, 'Turtle has already been intialized!' )
 		return 0 # already has been initialized
+	if not BehaviorFunctions.GET_TURTLE_INFO( world, turtle ):
+		return 1 # get turtle info
 	if not BehaviorFunctions.HAS_NEW_TURTLE_REQUIREMENT( turtle ):
-		return 1 # does not have turtle requirements
-	if not BehaviorFunctions.GET_TURTLE_INFO(turtle):
-		return 2 # get turtle info
+		CCWorldAPI.untracked_turtle_job( world, turtle.uid, TurtleActions.print, 'Turtle does not meet requirements! ' + err )
+		return 2 # does not have turtle requirements
 	return 3 # has all the requirements
 
 def main_loop_mutator( _, seq ) -> None:
@@ -417,13 +427,8 @@ BehaviorTrees.INITIALIZER = BehaviorTreeBuilder.build_from_nested(
 			TreeNodeFactory.multi_callback_node([
 				lambda *args : print('Turtle has already been initialized, skipping.'),
 				lambda _, __, world, turtle : BehaviorFunctions.GET_TURTLE_INFO(world, turtle),
+				lambda _, __, wrld, trt : CCWorldAPI.untracked_turtle_job( wrld, trt.uid, TurtleActions.print, 'Turtle has already been initialized.' ),
 			], TreeNodeFactory.pass_to_behavior_tree( main_loop_mutator, BehaviorTrees.MAIN_LOOP )),
-
-			# turtle does not have the initial requirements
-			TreeNodeFactory.multi_callback_node([
-				lambda *args : print('Turtle does not have all the requirements to start.'),
-				lambda bt, seq, _, __ : bt.pop_sequencer( seq ) # remove from behavior tree
-			], None),
 
 			# could not get the turtle info
 			TreeNodeFactory.multi_callback_node([
@@ -431,11 +436,19 @@ BehaviorTrees.INITIALIZER = BehaviorTreeBuilder.build_from_nested(
 				lambda bt, seq, _, __ : bt.pop_sequencer( seq ) # remove from behavior tree
 			], None),
 
+			# turtle does not have the initial requirements
+			TreeNodeFactory.multi_callback_node([
+				lambda *args : print('Turtle does not have all the requirements to start.'),
+				lambda _, __, wrld, trt : CCWorldAPI.untracked_turtle_job( wrld, trt.uid, TurtleActions.print, 'Turtle does not have all the requirements.' ),
+				lambda bt, seq, _, __ : bt.pop_sequencer( seq ), # remove from behavior tree
+			], None),
+
 			# turtle has all the requirements and now it will start.
 			TreeNodeFactory.multi_callback_node([
 				lambda *args : print('Turtle has all the requirements to start.'),
 				lambda _, __, world, turtle : BehaviorFunctions.GET_TURTLE_INFO(world, turtle),
 				lambda _, __, ___, turtle : BehaviorFunctions.SET_IS_TURTLE_NEW_TO_FALSE(turtle),
+				lambda _, __, wrld, trt : CCWorldAPI.untracked_turtle_job( wrld, trt.uid, TurtleActions.print, 'Turtle has all the requirements.' ),
 			], TreeNodeFactory.pass_to_behavior_tree( main_loop_mutator, BehaviorTrees.MAIN_LOOP ))
 		],
 		None

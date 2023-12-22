@@ -182,6 +182,7 @@ local actions = {
 	findItemSlotsByPattern = findItemSlotsByPattern,
 	getEquippedItems = getEquippedItems,
 	procreate = procreate,
+	print = print,
 }
 
 return actions

@@ -155,6 +155,10 @@ The HIVE behavior tree has not been implemented yet and will be in the future on
 
 ✔️❌🚧
 
+When testing you can utilize the following command to view and set the fuel to a specific value.
+- ``/data modify block [X] [Y] [Z] "Fuel" set value 0``
+- ``/data get block [X] [Y] [Z]``
+
 ## Resources / Credits
 
 `99%` of the code was done by me, [@SPOOKEXE](https://www.github.com/SPOOKEXE).

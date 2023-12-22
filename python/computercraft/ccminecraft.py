@@ -72,7 +72,7 @@ class CCWorldAPI(WorldAPI):
 
 	@staticmethod
 	def yield_turtle_job( world : CCWorld, turtle_id : str, job : TurtleActions, *args ) -> dict | list | bool:
-		print('YIELD TURTLE JOB: ', turtle_id, job.name)
+		# print('YIELD TURTLE JOB: ', turtle_id, job.name)
 		turtle = CCWorldAPI.get_turtle_from_id( world, turtle_id )
 		if turtle == None:
 			return None
@@ -82,6 +82,10 @@ class CCWorldAPI(WorldAPI):
 			sleep(0.01)
 		turtle.job_queue.pop(0) # remove item from queue
 		return turtle.tracker_results.pop( tracker_id )
+
+	@staticmethod
+	def untracked_turtle_job( world : CCWorld, turtle_id : str, job : TurtleActions, *args ) -> None:
+		CCWorldAPI.yield_turtle_job( world, turtle_id, job, *args )
 
 	@staticmethod
 	def serialize( world : CCWorld ) -> bytes:

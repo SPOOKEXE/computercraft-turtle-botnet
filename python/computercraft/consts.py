@@ -79,6 +79,7 @@ class TurtleActions(Enum):
 	getEquippedItems = 81
 	procreate = 82
 	isBusy = 83
+	print = 84
 
 class CCTurtle(SolidBlock, Inventory):
 	uid : str = uuid4().hex
