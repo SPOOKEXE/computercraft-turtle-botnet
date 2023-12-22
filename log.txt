@@ -1,0 +1,810 @@
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+==============
+A websocket connection error has occured.
+--------------
+{'success': False, 'data': None, 'message': 'An internal server error occured..'}
+{'uid': '24', 'job': 1}
+{'success': True, 'data': True, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '22', 'job': 1}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'results': [False, 'Nothing to dig here'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [False, 'Nothing to dig here']
+Failed to dig block
+Turtle of uid 24 failed to reach target ore height.
+MAIN SWITCH, GOT TURTLE: 24
+24 needs more fuel! Start the LOW_FUEL_RESOLVER tree.
+Appended sequencer to behavior tree of uid LOW_FUEL_RESOLVER
+Appended sequencer to behavior tree of uid MAIN_LOOP
+MAIN SWITCH, GOT TURTLE: 24
+24 needs more fuel! Start the LOW_FUEL_RESOLVER tree.
+Appended sequencer to behavior tree of uid LOW_FUEL_RESOLVER
+Appended sequencer to behavior tree of uid MINE_ORE_RESOURCE
+dig down
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [False, 'No block to inspect'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [False, 'No block to inspect'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [False, 'No block to inspect'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [False, 'No block to inspect'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [False, 'No block to inspect'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [False, 'No block to inspect'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [False, 'No block to inspect'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:coal_ore', 'tags': {'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'forge:ores': True, 'peripherals:mineable_by_any': True, 'peripherals:netherite_pick': True, 'forge:ores_in_ground/stone': True, 'forge:ore_rates/singular': True, 'peripherals:stone_pick': True, 'minecraft:coal_ores': True, 'forge:ores/coal': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:coal_ore', 'tags': {'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'forge:ores': True, 'peripherals:mineable_by_any': True, 'peripherals:netherite_pick': True, 'forge:ores_in_ground/stone': True, 'forge:ore_rates/singular': True, 'peripherals:stone_pick': True, 'minecraft:coal_ores': True, 'forge:ores/coal': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:coal_ore', 'tags': {'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'forge:ores': True, 'peripherals:mineable_by_any': True, 'peripherals:netherite_pick': True, 'forge:ores_in_ground/stone': True, 'forge:ore_rates/singular': True, 'peripherals:stone_pick': True, 'minecraft:coal_ores': True, 'forge:ores/coal': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [False, 'No block to inspect'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [False, 'No block to inspect'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [False, 'No block to inspect'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [False, 'No block to inspect'], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:stone', 'tags': {'minecraft:stone_ore_replaceables': True, 
+'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:moss_replaceable': True, 'forge:ore_bearing_ground/stone': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:azalea_root_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:goats_spawnable_on': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['inspectBelow'], 'message': None}
+{'uid': '24', 'results': [True, {'state': {}, 'name': 'minecraft:granite', 'tags': {'minecraft:lush_ground_replaceable': True, 'peripherals:gold_pick': True, 'peripherals:wooden_pick': True, 'peripherals:iron_pick': True, 'minecraft:mineable/pickaxe': True, 'minecraft:azalea_root_replaceable': True, 'minecraft:base_stone_overworld': True, 'peripherals:mineable_by_any': 
+True, 'minecraft:dripstone_replaceable_blocks': True, 'forge:stone': True, 'minecraft:moss_replaceable': True, 'peripherals:stone_pick': True, 'minecraft:stone_ore_replaceables': True, 'peripherals:netherite_pick': True}}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+['minecraft:mineable/pickaxe', 'peripherals:mineable_by_any']
+name='minecraft:iron_pickaxe' quantity=1
+TOOL IS EQUIPPED
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['digBelow'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+DIG RESULT: [True]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['down'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+MOVE RESULT:  [True]
+Turtle of uid 24 successfully reached target ore height.
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['getTurtleInfo'], 'message': None}
+{'uid': '24', 'results': [{'inventory': [{'name': 'minecraft:iron_shovel', 'count': 1}, {'name': 'minecraft:iron_axe', 'count': 1}, {'name': 'minecraft:dirt', 'count': 4}, {'name': 'minecraft:crafting_table', 'count': 1}, {'name': 'minecraft:cobblestone', 'count': 34}, {'name': 'minecraft:coal', 'count': 3}, {'name': 'minecraft:granite', 'count': 1}], 'fuel': 148, 'equipped': [{'name': 'minecraft:iron_pickaxe', 'count': 1}, False]}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+GET_TURTLE_INFO: [{'inventory': [{'name': 'minecraft:iron_shovel', 'count': 1}, {'name': 'minecraft:iron_axe', 'count': 1}, 
+{'name': 'minecraft:dirt', 'count': 4}, {'name': 'minecraft:crafting_table', 'count': 1}, {'name': 'minecraft:cobblestone', 
+'count': 34}, {'name': 'minecraft:coal', 'count': 3}, {'name': 'minecraft:granite', 'count': 1}], 'fuel': 148, 'equipped': [{'name': 'minecraft:iron_pickaxe', 'count': 1}, False]}]
+COUNT INVENTORY: [{'name': 'minecraft:iron_shovel', 'count': 1}, {'name': 'minecraft:iron_axe', 'count': 1}, {'name': 'minecraft:dirt', 'count': 4}, {'name': 'minecraft:crafting_table', 'count': 1}, {'name': 'minecraft:cobblestone', 'count': 34}, {'name': 'minecraft:coal', 'count': 3}, {'name': 'minecraft:granite', 'count': 1}]
+LOW_FUEL_RESOLVER: {'minecraft:iron_shovel': 1, 'minecraft:iron_axe': 1, 'minecraft:dirt': 4, 'minecraft:crafting_table': 1, 'minecraft:cobblestone': 34, 'minecraft:coal': 3, 'minecraft:granite': 1, 'minecraft:iron_pickaxe': 1}
+Refuel using pattern:  24
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['findItemSlotsByPattern', 'minecraft:coal'], 'message': None}
+{'uid': '24', 'results': [[6]], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+FUEL ITEMS: [5]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['getTurtleInfo'], 'message': None}
+{'uid': '24', 'results': [{'inventory': [{'name': 'minecraft:iron_shovel', 'count': 1}, {'name': 'minecraft:iron_axe', 'count': 1}, {'name': 'minecraft:dirt', 'count': 4}, {'name': 'minecraft:crafting_table', 'count': 1}, {'name': 'minecraft:cobblestone', 'count': 34}, {'name': 'minecraft:coal', 'count': 3}, {'name': 'minecraft:granite', 'count': 1}], 'fuel': 148, 'equipped': [{'name': 'minecraft:iron_pickaxe', 'count': 1}, False]}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+GET_TURTLE_INFO: [{'inventory': [{'name': 'minecraft:iron_shovel', 'count': 1}, {'name': 'minecraft:iron_axe', 'count': 1}, 
+{'name': 'minecraft:dirt', 'count': 4}, {'name': 'minecraft:crafting_table', 'count': 1}, {'name': 'minecraft:cobblestone', 
+'count': 34}, {'name': 'minecraft:coal', 'count': 3}, {'name': 'minecraft:granite', 'count': 1}], 'fuel': 148, 'equipped': [{'name': 'minecraft:iron_pickaxe', 'count': 1}, False]}]
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['selectSlot', 6], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['refuel'], 'message': None}
+{'uid': '24', 'results': [True], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['findItemSlotsByPattern', 'minecraft:coal_block'], 'message': None}
+{'uid': '24', 'results': [{}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+FUEL ITEMS: []
+at y-level
+Turtle of uid 24 successfully reached target ore height.
+MAIN SWITCH, GOT TURTLE: 24
+24 needs more fuel! Start the LOW_FUEL_RESOLVER tree.
+Appended sequencer to behavior tree of uid LOW_FUEL_RESOLVER
+Appended sequencer to behavior tree of uid MAIN_LOOP
+MAIN SWITCH, GOT TURTLE: 24
+24 needs more fuel! Start the LOW_FUEL_RESOLVER tree.
+Appended sequencer to behavior tree of uid LOW_FUEL_RESOLVER
+Appended sequencer to behavior tree of uid LOW_FUEL_RESOLVER
+{'uid': '24', 'job': 3}
+{'success': True, 'data': ['getTurtleInfo'], 'message': None}
+{'uid': '24', 'results': [{'inventory': [{'name': 'minecraft:iron_shovel', 'count': 1}, {'name': 'minecraft:iron_axe', 'count': 1}, {'name': 'minecraft:dirt', 'count': 4}, {'name': 'minecraft:crafting_table', 'count': 1}, {'name': 'minecraft:cobblestone', 'count': 34}, {'name': 'minecraft:granite', 'count': 1}], 'fuel': 388, 'equipped': [{'name': 'minecraft:iron_pickaxe', 'count': 1}, False]}], 'job': 4}
+{'success': True, 'data': None, 'message': 'The results have been set.'}
+GET_TURTLE_INFO: [{'inventory': [{'name': 'minecraft:iron_shovel', 'count': 1}, {'name': 'minecraft:iron_axe', 'count': 1}, 
+{'name': 'minecraft:dirt', 'count': 4}, {'name': 'minecraft:crafting_table', 'count': 1}, {'name': 'minecraft:cobblestone', 
+'count': 34}, {'name': 'minecraft:granite', 'count': 1}], 'fuel': 388, 'equipped': [{'name': 'minecraft:iron_pickaxe', 'count': 1}, False]}]
+COUNT INVENTORY: [{'name': 'minecraft:iron_shovel', 'count': 1}, {'name': 'minecraft:iron_axe', 'count': 1}, {'name': 'minecraft:dirt', 'count': 4}, {'name': 'minecraft:crafting_table', 'count': 1}, {'name': 'minecraft:cobblestone', 'count': 34}, {'name': 'minecraft:granite', 'count': 1}]
+LOW_FUEL_RESOLVER: {'minecraft:iron_shovel': 1, 'minecraft:iron_axe': 1, 'minecraft:dirt': 4, 'minecraft:crafting_table': 1, 'minecraft:cobblestone': 34, 'minecraft:granite': 1, 'minecraft:iron_pickaxe': 1}
+Mine for coal then go through the behavior trees again.
+Appended sequencer to behavior tree of uid MINE_ORE_RESOURCE
+Appended sequencer to behavior tree of uid MAIN_LOOP
+at y-level
+MAIN SWITCH, GOT TURTLE: 24
+Turtle of uid 24 successfully reached target ore height.
+Turtle 24 has minimum coal requirement but nothing else has been implemented!
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+{'uid': '24', 'job': 3}
+{'success': True, 'data': False, 'message': None}
+Starting behavior tree: MINE_ORE_RESOURCE
+Behavior tree of uid MINE_ORE_RESOURCE auto-updating has been stopped.
+Starting behavior tree: LOW_FUEL_RESOLVER
+Behavior tree of uid LOW_FUEL_RESOLVER auto-updating has been stopped.
+Starting behavior tree: MAIN_LOOP
+Behavior tree of uid MAIN_LOOP auto-updating has been stopped.
+Starting behavior tree: INITIALIZER
+Behavior tree of uid INITIALIZER auto-updating has been stopped.
